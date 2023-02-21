@@ -31,6 +31,7 @@ const LoginScreen = ({navigation}) => {
         <Input
           placeholder={'Masukan Nomor Telpon'}
           theme={'material'}
+          keyboardType={'phone-pad'}
           onChangeText={text => setPhone(text)}
           value={phone}
         />
