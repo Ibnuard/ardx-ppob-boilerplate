@@ -6,6 +6,8 @@ import LoginScreen from '../screens/login';
 import SplashScreen from '../screens/splash';
 import OnBoardingScreen from '../screens/onboarding';
 import RegisterScreen from '../screens/register';
+import PinModalScreen from '../components/pin';
+import ForgotPinOTPScreen from '../screens/forgotpinotp';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -53,6 +55,22 @@ export const AuthStackScreen = () => {
         name="SignUp"
         component={RegisterScreen}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="PinModal"
+        component={PinModalScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotPin"
+        component={ForgotPinOTPScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+        }}
       />
     </Stack.Navigator>
   );

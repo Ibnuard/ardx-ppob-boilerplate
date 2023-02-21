@@ -35,7 +35,13 @@ const LoginScreen = ({navigation}) => {
           value={phone}
         />
         <View style={styles.loginButton}>
-          <Button disabled={!phone} title="Masuk" />
+          <Button
+            disabled={!phone}
+            title="Masuk"
+            onPress={() =>
+              navigation.navigate('PinModal', {id: 'LOGIN', type: 'PIN'})
+            }
+          />
         </View>
 
         <Row mt={24}>
