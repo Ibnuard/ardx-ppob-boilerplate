@@ -11,7 +11,7 @@ export const COLOR_BLACK = '#090909';
 
 //GRAY COLOR
 export const COLOR_GRAY = 'rgba(78, 80, 83, 0.2);';
-export const COLOR_DARK_GRAY = '#D9D9D9';
+export const COLOR_DARK_GRAY = '#ABABAB';
 export const COLOR_LIGHT_GRAY = '#e3e3e3';
 
 //OTHER

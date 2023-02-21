@@ -22,14 +22,12 @@ export const TextExtraSmallMedium = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-SemiBold',
   fontSize: FONT_SIZE_10,
-  fontWeight: 'bold',
 };
 
 export const TextExtraSmallBold = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-Bold',
   fontSize: FONT_SIZE_10,
-  fontWeight: 'bold',
 };
 
 //default styling small
@@ -44,14 +42,12 @@ export const TextSmallMedium = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-SemiBold',
   fontSize: FONT_SIZE_12,
-  fontWeight: 'bold',
 };
 
 export const TextSmallBold = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-Bold',
   fontSize: FONT_SIZE_12,
-  fontWeight: 'bold',
 };
 
 //default styling normal
@@ -66,14 +62,12 @@ export const TextNormalMedium = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-SemiBold',
   fontSize: FONT_SIZE_14,
-  fontWeight: 'bold',
 };
 
 export const TextNormalBold = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-Bold',
   fontSize: FONT_SIZE_14,
-  fontWeight: 'bold',
 };
 
 //default styling medium
@@ -88,14 +82,12 @@ export const TextMediumMedium = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-SemiBold',
   fontSize: FONT_SIZE_16,
-  fontWeight: 'bold',
 };
 
 export const TextMediumBold = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-Bold',
   fontSize: FONT_SIZE_16,
-  fontWeight: 'bold',
 };
 
 //default styling large
@@ -110,14 +102,12 @@ export const TextLargeMedium = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-SemiBold',
   fontSize: FONT_SIZE_18,
-  fontWeight: 'bold',
 };
 
 export const TextLargeBold = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-Bold',
   fontSize: FONT_SIZE_18,
-  fontWeight: 'bold',
 };
 
 //default styling extra large
@@ -132,12 +122,10 @@ export const TextExtraLargeMedium = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-SemiBold',
   fontSize: FONT_SIZE_24,
-  fontWeight: 'bold',
 };
 
 export const TextExtraLargeBold = {
   color: COLOR_BLACK,
   fontFamily: 'Poppins-Bold',
   fontSize: FONT_SIZE_24,
-  fontWeight: 'bold',
 };

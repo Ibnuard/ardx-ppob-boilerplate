@@ -1,6 +1,14 @@
-import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  Animated,
+  Easing,
+} from 'react-native';
 import React from 'react';
-import {Colors, Typo} from '../../styles';
+import {Colors, Size, Typo} from '../../styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Touchable from '../touchable';
 import {IMG} from '../../utils/images';
@@ -8,6 +16,21 @@ import {IMG} from '../../utils/images';
 const Input = props => {
   const [isFocus, setIsFocus] = React.useState(false);
   const [isSecure, setIsSecure] = React.useState(false);
+
+  const focusAnim = React.useRef(new Animated.Value(0)).current;
+
+  //animate label
+  React.useEffect(() => {
+    Animated.timing(focusAnim, {
+      toValue: isFocus || !!props?.value ? 1 : 0,
+      // I took duration and easing values
+      // from material.io demo page
+      duration: 150,
+      easing: Easing.bezier(0.4, 0, 0.2, 1),
+      // we'll come back to this later
+      useNativeDriver: true,
+    }).start();
+  }, [focusAnim, isFocus, props?.value]);
 
   const themeSelector = () => {
     switch (props?.theme) {
@@ -28,6 +51,48 @@ const Input = props => {
 
   return (
     <View style={[styles.container, themeSelector()]}>
+      {props?.label && props?.theme == 'material' && (
+        <Animated.View
+          style={[
+            styles.labelContainer,
+            {
+              // top: focusAnim.interpolate({
+              //   inputRange: [0, 1],
+              //   outputRange: [14, -14],
+              // }),
+              transform: [
+                {
+                  scale: focusAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [1, 0.8],
+                  }),
+                },
+                {
+                  translateY: focusAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, -36],
+                  }),
+                },
+                {
+                  translateX: focusAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, -14],
+                  }),
+                },
+              ],
+            },
+          ]}>
+          <Text
+            style={[
+              styles.textLabel,
+              {
+                color: isFocus ? Colors.COLOR_PRIMARY : Colors.COLOR_DARK_GRAY,
+              },
+            ]}>
+            {props?.label}
+          </Text>
+        </Animated.View>
+      )}
       {props?.renderLeftContainer}
       <TextInput
         {...props}
@@ -42,6 +107,7 @@ const Input = props => {
         }}
         secureTextEntry={isSecure}
       />
+
       {props?.showEye && (
         <Touchable
           style={styles.showEye}
@@ -58,23 +124,29 @@ const Input = props => {
 };
 
 const styles = StyleSheet.create({
+  labelContainer: {
+    position: 'absolute',
+    left: 4,
+  },
+
   showEye: {
     paddingHorizontal: 8,
   },
   container: {
-    marginVertical: 8,
+    marginTop: Size.SIZE_18,
+    marginBottom: 8,
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
   },
 
   containerBorderBottom: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: Colors.COLOR_GRAY,
   },
 
   containerBorderBottomActive: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: Colors.COLOR_PRIMARY,
   },
 
@@ -104,6 +176,12 @@ const styles = StyleSheet.create({
   input: {
     ...Typo.TextNormalMedium,
     flex: 1,
+  },
+
+  // ============= TEXT STYLE
+  textLabel: {
+    ...Typo.TextNormalBold,
+    color: Colors.COLOR_DARK_GRAY,
   },
 });
 

@@ -26,7 +26,7 @@ const LoginScreen = ({navigation}) => {
         />
       </View>
 
-      <Center flex={1} p={24}>
+      <View style={styles.centerContainer}>
         <Image source={IMG.logo} style={styles.logo} resizeMode={'contain'} />
         <Input
           placeholder={'Masukan Nomor Telpon'}
@@ -40,11 +40,11 @@ const LoginScreen = ({navigation}) => {
 
         <Row mt={24}>
           <Text style={styles.textDesc}>Belum punya akun?</Text>
-          <Touchable mx={4} mt={-4}>
+          <Touchable mx={4} onPress={() => navigation.navigate('SignUp')}>
             <Text style={styles.textRegisterButton}>Daftar</Text>
           </Touchable>
         </Row>
-      </Center>
+      </View>
     </KeyboardAvoidingView>
   );
 };
@@ -78,6 +78,11 @@ const styles = StyleSheet.create({
 
   bgImage: {
     width: '100%',
+  },
+
+  centerContainer: {
+    alignItems: 'center',
+    padding: Size.SIZE_24,
   },
 
   // ==== TEXT STYLE
