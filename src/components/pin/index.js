@@ -6,6 +6,7 @@ import Heading from '../heading';
 import Center from '../center';
 import {AuthContext} from '../../context';
 import Touchable from '../touchable';
+import {useFocusEffect} from '@react-navigation/native';
 
 const PinModalScreen = props => {
   const {navigation, route} = props;
@@ -16,6 +17,7 @@ const PinModalScreen = props => {
   //STATE
   const [code, setCode] = React.useState();
   const [pinError, setPinError] = React.useState(false);
+  const [delay, setDelay] = React.useState(60);
 
   // ========== NAV ID / TYPE
   const NAV_ID = route?.params?.id;
@@ -96,6 +98,19 @@ const PinModalScreen = props => {
         break;
     }
   };
+
+  // ======= HANDLE OTP DELAY
+  useFocusEffect(
+    React.useCallback(() => {
+      if (TYPE == 'OTP') {
+        setTimeout(() => {
+          if (delay > 0) {
+            setDelay(delay - 1);
+          }
+        }, 1000);
+      }
+    }, [delay]),
+  );
 
   // ======== RENDER TYPE PIN
   function _renderPIN() {
@@ -198,15 +213,16 @@ const PinModalScreen = props => {
         {pinError && (
           <Text style={styles.textError}>OTP yang anda masukan salah</Text>
         )}
-        <Touchable
-          mt={14}
-          onPress={() =>
-            navigation.navigate('PinModal', {
-              id: 'FORGOT_PIN',
-              type: 'OTP',
-            })
-          }>
-          <Text style={styles.textForgotPIN}>Kirim Ulang</Text>
+        <Touchable mt={14} disabled={delay > 0} onPress={() => setDelay(60)}>
+          <Text
+            style={[
+              styles.textForgotPIN,
+              {
+                color: delay > 0 ? Colors.COLOR_DARK_GRAY : Colors.COLOR_BLACK,
+              },
+            ]}>
+            Kirim Ulang{delay > 0 ? ` (${delay})` : ''}
+          </Text>
         </Touchable>
       </>
     );

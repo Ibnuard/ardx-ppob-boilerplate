@@ -15,7 +15,7 @@ const Touchable = (props = PROPS) => {
   return (
     <TouchableOpacity
       style={[props?.style, styles.container, propsInterpreter(props)]}
-      activeOpacity={0.6}
+      activeOpacity={props?.disabled ? 1 : 0.6}
       onPress={props?.disabled ? null : props?.onPress ? props?.onPress : null}>
       {props?.children}
     </TouchableOpacity>
