@@ -25,12 +25,15 @@ const PinModalScreen = props => {
   const handleTitleById = () => {
     if (NAV_ID == 'LOGIN') {
       return 'Masukan PIN';
-    } else if (NAV_ID == 'FORGOT_PIN') {
+    } else if (NAV_ID == 'FORGOT_PIN' || NAV_ID == 'REGISTER_OTP') {
       return 'Masukan OTP';
-    } else if (NAV_ID == 'CREATE_NEW_PIN') {
-      return 'Buat PIN Baru';
-    } else if (NAV_ID == 'CONFIRM_NEW_PIN') {
-      return 'Konfirmasi PIN Baru';
+    } else if (NAV_ID == 'CREATE_NEW_PIN' || NAV_ID == 'REGISTER') {
+      return 'Buat PIN';
+    } else if (
+      NAV_ID == 'CONFIRM_NEW_PIN' ||
+      NAV_ID == 'REGISTER_CONFIRM_PIN'
+    ) {
+      return 'Konfirmasi PIN';
     }
   };
 
@@ -40,17 +43,57 @@ const PinModalScreen = props => {
       return setPinError(true);
     }
 
-    if (NAV_ID == 'LOGIN') {
-      signIn();
-    } else if (NAV_ID == 'FORGOT_PIN') {
-      setCode();
-      navigation.navigate('PinModal', {id: 'CREATE_NEW_PIN', type: 'PIN'});
-    } else if (NAV_ID == 'CREATE_NEW_PIN') {
-      setCode();
-      navigation.navigate('PinModal', {id: 'CONFIRM_NEW_PIN', type: 'PIN'});
-    } else if (NAV_ID == 'CONFIRM_NEW_PIN') {
-      setCode();
-      navigation.goBack();
+    switch (NAV_ID) {
+      case 'LOGIN':
+        {
+          signIn();
+        }
+        break;
+      case 'FORGOT_PIN':
+        {
+          setCode();
+          navigation.navigate('PinModal', {id: 'CREATE_NEW_PIN', type: 'PIN'});
+        }
+        break;
+      case 'CREATE_NEW_PIN':
+        {
+          setCode();
+          navigation.navigate('PinModal', {id: 'CONFIRM_NEW_PIN', type: 'PIN'});
+        }
+        break;
+      case 'CONFIRM_NEW_PIN':
+        {
+          setCode();
+          navigation.goBack();
+        }
+        break;
+      case 'REGISTER':
+        {
+          setCode();
+          navigation.navigate('PinModal', {
+            id: 'REGISTER_CONFIRM_PIN',
+            type: 'PIN',
+          });
+        }
+        break;
+      case 'REGISTER_CONFIRM_PIN':
+        {
+          setCode();
+          navigation.navigate('PinModal', {
+            id: 'REGISTER_OTP',
+            type: 'OTP',
+          });
+        }
+        break;
+      case 'REGISTER_OTP':
+        {
+          setCode();
+          navigation.popToTop();
+        }
+        break;
+
+      default:
+        break;
     }
   };
 

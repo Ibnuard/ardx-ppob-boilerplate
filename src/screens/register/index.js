@@ -42,7 +42,12 @@ const RegisterScreen = ({navigation}) => {
         ketentuan yang berlaku
       </Text>
       <View style={styles.bottomContainer}>
-        <Button title="Daftar" />
+        <Button
+          title="Daftar"
+          onPress={() =>
+            navigation.navigate('PinModal', {id: 'REGISTER', type: 'PIN'})
+          }
+        />
         <Row mt={24} style={styles.bottomTextButton}>
           <Text style={styles.textDesc}>Sudah Punya Akun?</Text>
           <Touchable mx={4} onPress={() => navigation.goBack()}>
