@@ -5,15 +5,22 @@ import {
   StyleSheet,
   SafeAreaView,
   Image,
-  ScrollView,
   StatusBar,
+  Dimensions,
+  Animated,
+  ScrollView,
 } from 'react-native';
 import {Row, Touchable} from '../../components';
 import {Colors, Scaler, Size, Typo} from '../../styles';
 import {IMG} from '../../utils/images';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Carousel from 'react-native-reanimated-carousel';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const HomeScreen = ({navigation}) => {
+  //const DIM
+  const {width} = Dimensions.get('window');
+
   //service icon static
   const SERVICES_BUTTON = [
     {
@@ -74,7 +81,7 @@ const HomeScreen = ({navigation}) => {
   // =========== render card balance
   function _renderCardBalance() {
     return (
-      <View style={styles.topCardContainer}>
+      <View style={[styles.topCardContainer]}>
         <Image source={IMG.cardBg} resizeMode={'cover'} style={styles.cardBg} />
         <View style={styles.cardContainer}>
           <Row>
@@ -129,32 +136,66 @@ const HomeScreen = ({navigation}) => {
   function _renderService() {
     return (
       <View style={styles.service}>
-        <Row mt={14} style={{flexWrap: 'wrap'}}>
-          {SERVICES_BUTTON.map((item, index) => {
-            return (
-              <Touchable
-                mv={14}
-                itemCenter
-                style={{
-                  width: '33%',
-                }}
-                key={index}>
-                <Image
-                  source={item.icon}
-                  style={styles.iconService}
-                  resizeMode={'contain'}
-                />
-                <Text style={styles.textService}>{item.title}</Text>
-              </Touchable>
-            );
-          })}
-        </Row>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContainer}>
+          <Row mt={14} style={{flexWrap: 'wrap'}}>
+            {SERVICES_BUTTON.map((item, index) => {
+              return (
+                <Touchable
+                  mv={14}
+                  itemCenter
+                  style={{
+                    width: '33%',
+                  }}
+                  key={index}>
+                  <Image
+                    source={item.icon}
+                    style={styles.iconService}
+                    resizeMode={'contain'}
+                  />
+                  <Text style={styles.textService}>{item.title}</Text>
+                </Touchable>
+              );
+            })}
+          </Row>
+          <View style={styles.spacer} />
+          <GestureHandlerRootView style={styles.slideContainer}>
+            <Carousel
+              loop
+              panGestureHandlerProps={{
+                activeOffsetX: [-10, 10],
+              }}
+              width={width}
+              height={width / 2}
+              autoPlay={true}
+              data={[...new Array(6).keys()]}
+              scrollAnimationDuration={1000}
+              snapEnabled={true}
+              mode="parallax"
+              modeConfig={{
+                parallaxScrollingScale: 0.9,
+                parallaxScrollingOffset: 50,
+              }}
+              renderItem={({index}) => (
+                <Touchable flex={1}>
+                  <Image
+                    source={{
+                      uri: 'https://d2h87rbqc48mm2.cloudfront.net/ir/img/Examples-of-Promotional-Words-Collections.jpg',
+                    }}
+                    style={styles.promoImage}
+                  />
+                </Touchable>
+              )}
+            />
+          </GestureHandlerRootView>
+        </ScrollView>
       </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} forceInset={{top: 'always'}}>
       <StatusBar backgroundColor={Colors.COLOR_SECONDARY} />
       {_renderHeader()}
       {_renderCardBalance()}
@@ -211,6 +252,7 @@ const styles = StyleSheet.create({
   topCardContainer: {
     marginTop: Size.SIZE_14,
     marginHorizontal: Size.SIZE_24,
+    overflow: 'hidden',
   },
 
   service: {
@@ -228,6 +270,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
+  },
+
+  scrollContainer: {
+    paddingBottom: Scaler.scaleSize(20),
+  },
+
+  slideContainer: {
+    marginTop: Size.SIZE_14,
+  },
+
+  promoImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 20,
+  },
+
+  spacer: {
+    width: '100%',
+    height: Size.SIZE_8,
+    backgroundColor: Colors.COLOR_LIGHT_GRAY,
+    marginVertical: Size.SIZE_8,
   },
 
   // ======= TEXT STYLE
