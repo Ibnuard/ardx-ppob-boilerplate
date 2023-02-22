@@ -1,8 +1,8 @@
 //MAIN COLOR
 export const COLOR_PRIMARY = '#B643D5';
-export const COLOR_SECONDARY = '#0092ff';
+export const COLOR_SECONDARY = '#F8E7F8';
 export const COLOR_ACCENT = '#ffa418';
-export const COLOR_DARK_BACKGROUND = '#3c3c3c';
+export const COLOR_DARK_BACKGROUND = '#F0BAFF';
 
 //BASIC COLOR
 export const COLOR_WHITE = '#FFFFFF';

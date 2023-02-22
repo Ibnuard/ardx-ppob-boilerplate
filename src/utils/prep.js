@@ -25,6 +25,8 @@ export const DEFAULT_PROPS = {
   w: 0,
   maxH: 0,
   maxW: 0,
+  itemCenter: 0,
+  justifyCenter: 0,
 };
 
 //parse props to css
@@ -87,13 +89,27 @@ const propsParser = key => {
     case 'flex':
       return 'flex';
       break;
+    case 'itemCenter':
+      return 'alignItems';
+      break;
+    case 'justifyCenter':
+      return 'justifyContent';
+      break;
     default:
       return null;
       break;
   }
 };
 
-const parseValue = (value, key) => {
+const parseValue = (value, key, cKey) => {
+  //alignment
+  if (cKey == 'itemCenter') {
+    return 'center';
+  } else if (cKey == 'justifyCenter') {
+    return 'center';
+  }
+
+  //size
   switch (value) {
     case 'full':
       return '100%';
@@ -116,7 +132,7 @@ export const propsInterpreter = props => {
   for (const [key, value] of Object.entries(props)) {
     const parsedKey = propsParser(key);
     if (parsedKey !== null) {
-      styled[parsedKey] = parseValue(value, parsedKey);
+      styled[parsedKey] = parseValue(value, parsedKey, key);
     }
   }
   return styled;

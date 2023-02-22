@@ -12,4 +12,12 @@ export const IMG = {
     send: require('../../assets/images/ic_send.png'),
     request: require('../../assets/images/ic_request.png'),
   },
+  services: {
+    pulsa: require('../../assets/images/ic_service_pulsa.png'),
+    data: require('../../assets/images/ic_service_data.png'),
+    pln: require('../../assets/images/ic_service_pln.png'),
+    pdam: require('../../assets/images/ic_service_pdam.png'),
+    bpjs: require('../../assets/images/ic_service_bpjs.png'),
+    games: require('../../assets/images/ic_service_game.png'),
+  },
 };
