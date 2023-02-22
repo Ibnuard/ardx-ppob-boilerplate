@@ -94,7 +94,9 @@ const HomeScreen = ({navigation}) => {
             </View>
           </Row>
           <Row mt={24}>
-            <Touchable style={styles.cardButton}>
+            <Touchable
+              style={styles.cardButton}
+              onPress={() => navigation.navigate('TopUp')}>
               <Image
                 source={IMG.icon.topup}
                 style={styles.iconButton}

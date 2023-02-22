@@ -13,6 +13,7 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 //============== ICON
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Colors} from '../styles';
+import TopUpScreen from '../screens/topup';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -148,12 +149,37 @@ export const MainScreen = () => {
 //
 // ==========================================================
 
+// ============== HOME STACK SCREEN
 const HomeStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="HoemInit"
+        name="HomeInit"
         component={HomeScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="TopUp"
+        component={TopUpStack}
+        options={{
+          headerShown: true,
+          title: '',
+          headerShadowVisible: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== TOPUP STACK
+const TopUpStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="TopUpInit"
+        component={TopUpScreen}
         options={{
           headerShown: false,
         }}

@@ -7,5 +7,17 @@ import Row from './row';
 import Heading from './heading';
 import Slider from './slider';
 import Touchable from './touchable';
+import SubHeading from './subheading';
 
-export {Button, Card, Modal, Input, Center, Row, Heading, Slider, Touchable};
+export {
+  Button,
+  Card,
+  Modal,
+  Input,
+  Center,
+  Row,
+  Heading,
+  Slider,
+  Touchable,
+  SubHeading,
+};
