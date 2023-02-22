@@ -60,7 +60,11 @@ const HomeScreen = ({navigation}) => {
           </Row>
 
           <Touchable style={styles.notifButton}>
-            <Icon name="md-notifications-outline" size={20} />
+            <Icon
+              name="md-notifications-outline"
+              size={20}
+              color={Colors.COLOR_BLACK}
+            />
           </Touchable>
         </Row>
       </View>
