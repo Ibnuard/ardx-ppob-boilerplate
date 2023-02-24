@@ -8,6 +8,7 @@ import Heading from './heading';
 import Slider from './slider';
 import Touchable from './touchable';
 import SubHeading from './subheading';
+import ExpandableView from './expandable';
 
 export {
   Button,
@@ -20,4 +21,5 @@ export {
   Slider,
   Touchable,
   SubHeading,
+  ExpandableView,
 };

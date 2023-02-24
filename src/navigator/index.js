@@ -14,6 +14,7 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Colors} from '../styles';
 import TopUpScreen from '../screens/topup';
+import TopUpDetailScreen from '../screens/topupdetail';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -106,9 +107,9 @@ export const MainScreen = () => {
         tabBarStyle: (route => {
           const routeName = getFocusedRouteNameFromRoute(route) ?? '';
           if (
-            routeName === 'HomeStack' ||
-            routeName === 'HistoryStack' ||
-            routeName === 'ProfileStack' ||
+            routeName === 'HomeInit' ||
+            routeName === 'HistoryInit' ||
+            routeName === 'ProfileInit' ||
             !routeName
           ) {
             return {display: 'flex'};
@@ -180,6 +181,13 @@ const TopUpStack = () => {
       <Stack.Screen
         name="TopUpInit"
         component={TopUpScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="TopUpDetail"
+        component={TopUpDetailScreen}
         options={{
           headerShown: false,
         }}
