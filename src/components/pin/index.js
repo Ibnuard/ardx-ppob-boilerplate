@@ -21,7 +21,7 @@ const PinModalScreen = props => {
 
   // ========== NAV ID / TYPE
   const NAV_ID = route?.params?.id;
-  const TYPE = route?.params?.type;
+  const TYPE = route?.params?.type || props?.type;
 
   // ========= HANDLE SCREEN TITLE
   const handleTitleById = () => {
@@ -36,12 +36,15 @@ const PinModalScreen = props => {
       NAV_ID == 'REGISTER_CONFIRM_PIN'
     ) {
       return 'Konfirmasi PIN';
+    } else {
+      return 'Masukan PIN';
     }
   };
 
   // ========== ON FULLFILL HANLDER
   const handleOnFilled = code => {
     if (code == '123456') {
+      setCode();
       return setPinError(true);
     }
 
@@ -95,6 +98,9 @@ const PinModalScreen = props => {
         break;
 
       default:
+        {
+          props?.onFilled ? props?.onFilled() : null;
+        }
         break;
     }
   };

@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Colors} from '../styles';
 import TopUpScreen from '../screens/topup';
 import TopUpDetailScreen from '../screens/topupdetail';
+import SendScreen from '../screens/send';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -170,6 +171,15 @@ const HomeStack = () => {
           headerShadowVisible: false,
         }}
       />
+      <Stack.Screen
+        name="Send"
+        component={SendStack}
+        options={{
+          headerShown: true,
+          title: '',
+          headerShadowVisible: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -188,6 +198,21 @@ const TopUpStack = () => {
       <Stack.Screen
         name="TopUpDetail"
         component={TopUpDetailScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== SEND STACK
+const SendStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SendInit"
+        component={SendScreen}
         options={{
           headerShown: false,
         }}

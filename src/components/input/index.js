@@ -50,7 +50,7 @@ const Input = props => {
   };
 
   return (
-    <View style={[styles.container, themeSelector()]}>
+    <View style={[styles.container, themeSelector(), props?.containerStyle]}>
       {props?.label && props?.theme == 'material' && (
         <Animated.View
           style={[
@@ -167,10 +167,7 @@ const styles = StyleSheet.create({
   },
 
   containerNoBorder: {
-    borderColor: Colors.COLOR_GRAY,
-    borderRadius: 8,
-    backgroundColor: Colors.COLOR_DARK_GRAY,
-    paddingHorizontal: 8,
+    backgroundColor: Colors.COLOR_LIGHT_GRAY,
   },
 
   input: {

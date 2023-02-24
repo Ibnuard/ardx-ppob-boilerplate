@@ -112,7 +112,9 @@ const HomeScreen = ({navigation}) => {
               />
               <Text style={styles.textButton}>Pay</Text>
             </Touchable>
-            <Touchable style={styles.cardButton}>
+            <Touchable
+              style={styles.cardButton}
+              onPress={() => navigation.navigate('Send')}>
               <Image
                 source={IMG.icon.send}
                 style={styles.iconButton}

@@ -9,6 +9,8 @@ import Slider from './slider';
 import Touchable from './touchable';
 import SubHeading from './subheading';
 import ExpandableView from './expandable';
+import BottomSheet from './bottomsheet';
+import PinBottomSheet from './pinbottomsheet';
 
 export {
   Button,
@@ -22,4 +24,6 @@ export {
   Touchable,
   SubHeading,
   ExpandableView,
+  BottomSheet,
+  PinBottomSheet,
 };

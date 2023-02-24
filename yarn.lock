@@ -5921,6 +5921,11 @@
   "resolved" "https://registry.npmjs.org/react-native-encrypted-storage/-/react-native-encrypted-storage-4.0.2.tgz"
   "version" "4.0.2"
 
+"react-native-format-currency@^0.0.3":
+  "integrity" "sha512-MLCTyQ+B9DWz85KQZzqsjY+peKYScnemRobTcNb+A6bstmNR8LLK8dx3PAYlwc5ZQ0PMm13XXAqT2sPwp9UKAA=="
+  "resolved" "https://registry.npmjs.org/react-native-format-currency/-/react-native-format-currency-0.0.3.tgz"
+  "version" "0.0.3"
+
 "react-native-gesture-handler@*", "react-native-gesture-handler@^2.9.0":
   "integrity" "sha512-a0BcH3Qb1tgVqUutc6d3VuWQkI1AM3+fJx8dkxzZs9t06qA27QgURYFoklpabuWpsUTzuKRpxleykp25E8m7tg=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.9.0.tgz"
