@@ -1,7 +1,8 @@
 import {
-  formatCurrency,
-  getSupportedCurrencies,
-} from 'react-native-format-currency';
+  getFocusedRouteNameFromRoute,
+  useFocusEffect,
+} from '@react-navigation/native';
+import * as React from 'react';
 
 //create simple log
 export const cLog = (log = '', color) => {

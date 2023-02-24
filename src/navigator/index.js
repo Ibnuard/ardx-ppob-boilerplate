@@ -16,6 +16,8 @@ import {Colors} from '../styles';
 import TopUpScreen from '../screens/topup';
 import TopUpDetailScreen from '../screens/topupdetail';
 import SendScreen from '../screens/send';
+import ContactScreen from '../screens/contacts';
+import {headerVisibility} from '../utils/utils';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -166,18 +168,14 @@ const HomeStack = () => {
         name="TopUp"
         component={TopUpStack}
         options={{
-          headerShown: true,
-          title: '',
-          headerShadowVisible: false,
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="Send"
         component={SendStack}
         options={{
-          headerShown: true,
-          title: '',
-          headerShadowVisible: false,
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
@@ -192,14 +190,19 @@ const TopUpStack = () => {
         name="TopUpInit"
         component={TopUpScreen}
         options={{
-          headerShown: false,
+          title: '',
+          headerShadowVisible: false,
         }}
       />
       <Stack.Screen
         name="TopUpDetail"
         component={TopUpDetailScreen}
         options={{
-          headerShown: false,
+          headerShown: true,
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          animationDuration: 100,
         }}
       />
     </Stack.Navigator>
@@ -214,7 +217,19 @@ const SendStack = () => {
         name="SendInit"
         component={SendScreen}
         options={{
-          headerShown: false,
+          title: '',
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Contact"
+        component={ContactScreen}
+        options={{
+          headerShown: true,
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          animationDuration: 100,
         }}
       />
     </Stack.Navigator>

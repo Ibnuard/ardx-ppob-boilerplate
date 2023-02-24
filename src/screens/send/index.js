@@ -20,7 +20,7 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import {formatRupiah} from '../../utils/utils';
 
-const SendScreen = () => {
+const SendScreen = ({navigation}) => {
   const [amount, setAmount] = React.useState(formatRupiah(0));
   const [receiver, setReceiver] = React.useState();
   const [message, setMessage] = React.useState();
@@ -45,8 +45,10 @@ const SendScreen = () => {
             keyboardType={'phone-pad'}
             onChangeText={text => setReceiver(text)}
           />
-          <Touchable style={styles.contactButton}>
-            <Icon name="contacts" size={24} />
+          <Touchable
+            style={styles.contactButton}
+            onPress={() => navigation.navigate('Contact')}>
+            <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
           </Touchable>
         </Row>
         <View style={styles.nominalContainer}>

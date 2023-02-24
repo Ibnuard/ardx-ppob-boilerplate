@@ -3,7 +3,7 @@ import React from 'react';
 import {Colors, Size, Typo} from '../../styles';
 import {Card, Center, ExpandableView, Heading} from '../../components';
 
-const TopUpDetailScreen = () => {
+const TopUpDetailScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.containerTop}>
