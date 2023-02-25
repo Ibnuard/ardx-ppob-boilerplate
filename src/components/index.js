@@ -11,6 +11,7 @@ import SubHeading from './subheading';
 import ExpandableView from './expandable';
 import BottomSheet from './bottomsheet';
 import PinBottomSheet from './pinbottomsheet';
+import RenderState from './renderstate';
 
 export {
   Button,
@@ -26,4 +27,5 @@ export {
   ExpandableView,
   BottomSheet,
   PinBottomSheet,
+  RenderState,
 };

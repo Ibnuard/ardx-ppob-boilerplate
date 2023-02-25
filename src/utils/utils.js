@@ -80,3 +80,29 @@ export const getRupiahNumber = (rupiah = '', usePrefix = true) => {
     return Number(rmDot);
   }
 };
+
+// ======= HANDLE CONTACT LIST
+export const handleContactList = (data = []) => {
+  let temp = [];
+
+  for (let dt of data) {
+    const base = {
+      name: dt?.givenName,
+      phone: dt?.phoneNumbers[0]?.number,
+    };
+
+    temp.push(base);
+  }
+
+  const sorted = temp.sort(function (a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+
+  return sorted;
+};

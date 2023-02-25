@@ -4,10 +4,10 @@ import Card from '../../../card';
 import styles from './styles';
 import Touchable from '../../../touchable';
 
-const ModalPopUp = ({onButtonPress}) => {
+const ModalPopUp = ({onButtonPress, message}) => {
   return (
     <Card style={styles.container}>
-      <Text style={styles.textMessage}>Halo ini pesan popup</Text>
+      <Text style={styles.textMessage}>{message}</Text>
       <Touchable
         style={styles.buttonOk}
         onPress={onButtonPress ? onButtonPress : null}>

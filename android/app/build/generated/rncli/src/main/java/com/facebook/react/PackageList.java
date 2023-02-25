@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
+// react-native-contacts
+import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 // react-native-encrypted-storage
 import com.emeraldsanto.encryptedstorage.RNEncryptedStoragePackage;
 // react-native-gesture-handler
@@ -69,6 +71,7 @@ public class PackageList {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(mConfig),
       new VectorIconsPackage(),
+      new ReactNativeContacts(),
       new RNEncryptedStoragePackage(),
       new RNGestureHandlerPackage(),
       new ReanimatedPackage(),
