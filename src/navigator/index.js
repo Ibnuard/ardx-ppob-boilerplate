@@ -133,15 +133,16 @@ export const MainScreen = () => {
       />
       <Stack.Screen
         name="HistoryStack"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{
           title: 'History',
         }}
       />
       <Stack.Screen
         name="ProfileStack"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{
+          headerShown: false,
           title: 'Profile',
         }}
       />
@@ -288,6 +289,25 @@ const RequestStack = () => {
           headerShadowVisible: false,
           animation: 'slide_from_right',
           animationDuration: 100,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== PROFILE STACK
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="ProfileInit"
+        component={ProfileScreen}
+        options={{
+          title: 'Profile',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
         }}
       />
     </Stack.Navigator>

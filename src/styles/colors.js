@@ -15,6 +15,7 @@ export const COLOR_ORANGE = '#FF8673';
 export const COLOR_GRAY = 'rgba(78, 80, 83, 0.2);';
 export const COLOR_DARK_GRAY = '#ABABAB';
 export const COLOR_LIGHT_GRAY = '#e3e3e3';
+export const BLACK_SECONDARY = '#686C71';
 
 //OTHER
 export const COLOR_TRANSPARENT = 'transparent';

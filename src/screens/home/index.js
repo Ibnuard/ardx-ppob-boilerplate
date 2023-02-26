@@ -32,7 +32,7 @@ const HomeScreen = ({navigation}) => {
       icon: IMG.services.data,
     },
     {
-      title: 'Pln',
+      title: 'PLN',
       icon: IMG.services.pln,
     },
     {
