@@ -41,6 +41,18 @@ const SendScreen = ({navigation, route}) => {
     }, [SELECTED_CONTACT]),
   );
 
+  // ========= GOTO DETAIL
+  const gotoDetail = () => {
+    navigation.reset({
+      index: 1,
+      routes: [
+        {
+          name: 'TransactionDetail',
+        },
+      ],
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -92,7 +104,7 @@ const SendScreen = ({navigation, route}) => {
         onBackPress={() => setShowPin(false)}
         onFilled={() => {
           setShowPin(false);
-          navigation.navigate('TransactionDetail');
+          gotoDetail();
         }}
       />
     </View>

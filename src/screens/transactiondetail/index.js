@@ -2,9 +2,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors, Scaler, Size, Typo} from '../../styles';
 import {Button, Heading, Row} from '../../components';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function TransactionDetailScreen() {
+export default function TransactionDetailScreen({navigation}) {
   // ========== DETAILS
   const DETAIL_ITEM = [
     {
@@ -55,7 +54,7 @@ export default function TransactionDetailScreen() {
         <Text style={styles.textDetailValueBold}>123</Text>
       </Row>
       <View style={styles.bottomContainer}>
-        <Button title="Tutup" />
+        <Button title="Tutup" onPress={() => navigation.goBack()} />
       </View>
     </View>
   );
