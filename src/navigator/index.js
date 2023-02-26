@@ -18,6 +18,7 @@ import TopUpDetailScreen from '../screens/topupdetail';
 import SendScreen from '../screens/send';
 import ContactScreen from '../screens/contacts';
 import {headerVisibility} from '../utils/utils';
+import TransactionDetailScreen from '../screens/transactiondetail';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -224,6 +225,17 @@ const SendStack = () => {
       <Stack.Screen
         name="Contact"
         component={ContactScreen}
+        options={{
+          headerShown: true,
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          animationDuration: 100,
+        }}
+      />
+      <Stack.Screen
+        name="TransactionDetail"
+        component={TransactionDetailScreen}
         options={{
           headerShown: true,
           title: '',

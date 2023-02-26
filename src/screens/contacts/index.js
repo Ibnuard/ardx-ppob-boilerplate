@@ -15,11 +15,15 @@ import Contacts from 'react-native-contacts';
 import {handleContactList} from '../../utils/utils';
 import Icon from 'react-native-vector-icons/Feather';
 
-const ContactScreen = ({navigation}) => {
+const ContactScreen = ({navigation, route}) => {
   const [contact, setContact] = React.useState();
   const [noPermission, setNoPermission] = React.useState(true);
   const [keyword, setKeyword] = React.useState('');
 
+  // ======= TARGET
+  const TARGET = route?.params?.target;
+
+  // ===== CHECK PERMISSION
   useFocusEffect(
     React.useCallback(() => {
       async function checkPermission() {
@@ -69,14 +73,19 @@ const ContactScreen = ({navigation}) => {
   // ========== FILTER CONTACT
   const filterContact = (data = [], key) => {
     return data.filter((item, index) => {
-      return item?.name?.includes(key) || item?.phone?.includes(key);
+      return (
+        item?.name?.toLowerCase().includes(key?.toLowerCase()) ||
+        item?.phone?.includes(key)
+      );
     });
   };
 
   //==== RENDER CONTACT CARD
   function _renderContactCard(item, index) {
     return (
-      <Touchable style={styles.listContent}>
+      <Touchable
+        style={styles.listContent}
+        onPress={() => navigation.navigate(TARGET, {phone: item?.phone})}>
         <Row>
           <Center styles={styles.circle}>
             <Icon name="user" size={28} color={Colors.COLOR_DESCRIPTION} />
@@ -105,8 +114,10 @@ const ContactScreen = ({navigation}) => {
             value={keyword}
             onChangeText={text => setKeyword(text)}
           />
-          {keyword.length > 0 && (
-            <Touchable style={styles.clearButton}>
+          {keyword?.length > 0 && (
+            <Touchable
+              style={styles.clearButton}
+              onPress={() => setKeyword('')}>
               <Icon name="x" size={24} color={Colors.COLOR_DESCRIPTION} />
             </Touchable>
           )}

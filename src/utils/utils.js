@@ -106,3 +106,15 @@ export const handleContactList = (data = []) => {
 
   return sorted;
 };
+
+// ==== NORMALIZE PHONE NUMBER
+export const normalizeNumber = (num = '') => {
+  let base = num.toString();
+  base = base.replace(/-/g, '').replace(/\s/g, '').replace('+', '');
+
+  if (base.charAt(0) == '6' && base.charAt(1) == '2') {
+    return base.substring(2);
+  }
+
+  return base;
+};

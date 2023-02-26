@@ -18,15 +18,28 @@ import {
   Touchable,
 } from '../../components';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {formatRupiah} from '../../utils/utils';
+import {formatRupiah, normalizeNumber} from '../../utils/utils';
+import {useFocusEffect} from '@react-navigation/native';
 
-const SendScreen = ({navigation}) => {
+const SendScreen = ({navigation, route}) => {
   const [amount, setAmount] = React.useState(formatRupiah(0));
   const [receiver, setReceiver] = React.useState();
   const [message, setMessage] = React.useState();
 
   //pin
   const [showPin, setShowPin] = React.useState(false);
+
+  // ========= GET SELECTED CONTACT
+  const SELECTED_CONTACT = route?.params?.phone ?? '';
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (SELECTED_CONTACT?.length) {
+        const getNumber = normalizeNumber(SELECTED_CONTACT);
+        setReceiver(getNumber);
+      }
+    }, [SELECTED_CONTACT]),
+  );
 
   return (
     <View style={styles.container}>
@@ -40,14 +53,16 @@ const SendScreen = ({navigation}) => {
         <Row px={24}>
           <Input
             theme={'material'}
-            placeholder={'Masukan Nomor Kontak'}
+            placeholder={'Masukan Nomor Ponsel'}
             value={receiver}
             keyboardType={'phone-pad'}
             onChangeText={text => setReceiver(text)}
           />
           <Touchable
             style={styles.contactButton}
-            onPress={() => navigation.navigate('Contact')}>
+            onPress={() =>
+              navigation.navigate('Contact', {target: 'SendInit'})
+            }>
             <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
           </Touchable>
         </Row>
@@ -75,7 +90,10 @@ const SendScreen = ({navigation}) => {
       <PinBottomSheet
         visible={showPin}
         onBackPress={() => setShowPin(false)}
-        onFilled={() => setShowPin(false)}
+        onFilled={() => {
+          setShowPin(false);
+          navigation.navigate('TransactionDetail');
+        }}
       />
     </View>
   );

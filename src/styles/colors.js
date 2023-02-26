@@ -8,6 +8,8 @@ export const COLOR_DARK_BACKGROUND = '#F0BAFF';
 export const COLOR_WHITE = '#FFFFFF';
 export const COLOR_RED = '#FF6565';
 export const COLOR_BLACK = '#090909';
+export const COLOR_GREEN = '#2EED2B';
+export const COLOR_ORANGE = '#FF8673';
 
 //GRAY COLOR
 export const COLOR_GRAY = 'rgba(78, 80, 83, 0.2);';
