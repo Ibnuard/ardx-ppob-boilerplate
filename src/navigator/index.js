@@ -12,13 +12,14 @@ import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 //============== ICON
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Colors} from '../styles';
+import {Colors, Typo} from '../styles';
 import TopUpScreen from '../screens/topup';
 import TopUpDetailScreen from '../screens/topupdetail';
 import SendScreen from '../screens/send';
 import ContactScreen from '../screens/contacts';
 import {headerVisibility} from '../utils/utils';
 import TransactionDetailScreen from '../screens/transactiondetail';
+import RequestScreen from '../screens/request';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -179,6 +180,13 @@ const HomeStack = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="Request"
+        component={RequestStack}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -237,7 +245,45 @@ const SendStack = () => {
         name="TransactionDetail"
         component={TransactionDetailScreen}
         options={{
+          headerShown: false,
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          animationDuration: 100,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== REQUEST STACK
+const RequestStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="RequestInit"
+        component={RequestScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name="Contact"
+        component={ContactScreen}
+        options={{
           headerShown: true,
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          animationDuration: 100,
+        }}
+      />
+      <Stack.Screen
+        name="TransactionDetail"
+        component={TransactionDetailScreen}
+        options={{
+          headerShown: false,
           title: '',
           headerShadowVisible: false,
           animation: 'slide_from_right',

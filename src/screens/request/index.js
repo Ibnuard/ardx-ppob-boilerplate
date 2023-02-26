@@ -21,7 +21,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {formatRupiah, normalizeNumber} from '../../utils/utils';
 import {useFocusEffect} from '@react-navigation/native';
 
-const SendScreen = ({navigation, route}) => {
+const RequestScreen = ({navigation, route}) => {
   const [amount, setAmount] = React.useState(formatRupiah(0));
   const [receiver, setReceiver] = React.useState();
   const [message, setMessage] = React.useState();
@@ -56,7 +56,7 @@ const SendScreen = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Heading>Transfer</Heading>
+        <Heading>Request</Heading>
         <SubHeading>Masukan atau pilih nomor ponsel</SubHeading>
       </View>
       <KeyboardAvoidingView
@@ -73,13 +73,13 @@ const SendScreen = ({navigation, route}) => {
           <Touchable
             style={styles.contactButton}
             onPress={() =>
-              navigation.navigate('Contact', {target: 'SendInit'})
+              navigation.navigate('Contact', {target: 'RequestInit'})
             }>
             <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
           </Touchable>
         </Row>
         <View style={styles.nominalContainer}>
-          <Text>Nominal Tranfer</Text>
+          <Text>Nominal Request</Text>
           <TextInput
             style={styles.input}
             value={amount}
@@ -111,7 +111,7 @@ const SendScreen = ({navigation, route}) => {
   );
 };
 
-export default SendScreen;
+export default RequestScreen;
 
 const styles = StyleSheet.create({
   container: {

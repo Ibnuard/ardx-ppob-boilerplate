@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors, Scaler, Size, Typo} from '../../styles';
 import {Button, Heading, Row} from '../../components';
@@ -29,7 +29,7 @@ export default function TransactionDetailScreen({navigation}) {
   ];
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
         <Text style={styles.textStatusSuccess}>Transaksi Sukses</Text>
         <Heading>Rp 10.000</Heading>
@@ -56,7 +56,7 @@ export default function TransactionDetailScreen({navigation}) {
       <View style={styles.bottomContainer}>
         <Button title="Tutup" onPress={() => navigation.goBack()} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
