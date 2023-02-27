@@ -1,30 +1,38 @@
 import {SectionList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors, Size, Typo} from '../../styles';
-import {groupingArraybyDate} from '../../utils/utils';
+import {formatRupiah, groupingArraybyDate} from '../../utils/utils';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {PARSE_MOMENT_ONLY} from '../../utils/moment';
 import {Row, Touchable} from '../../components';
 
-const InboxScreen = () => {
+const InboxScreen = ({navigation}) => {
   // ==== INITIALIZE TAB-BAR
   const Tab = createMaterialTopTabNavigator();
 
   const EX_DATA = [
     {
-      name: 'test',
+      name: '085741894533',
+      price: 20000,
+      message: 'Halo',
       createdDate: '2023-02-27T17:00:57+07:00',
     },
     {
-      name: 'test',
+      name: '085741894533',
+      price: 20000,
+      message: 'Halo',
       createdDate: '2023-02-26T17:00:57+07:00',
     },
     {
-      name: 'test',
+      name: '085741894533',
+      price: 20000,
+      message: 'Halo',
       createdDate: '2023-02-25T17:00:57+07:00',
     },
     {
-      name: 'test',
+      name: '085741894533',
+      price: 20000,
+      message: 'Halo',
       createdDate: '2023-02-25T17:00:57+07:00',
     },
   ];
@@ -41,10 +49,17 @@ const InboxScreen = () => {
           renderItem={({item}) => (
             <Touchable
               style={styles.card}
-              onPress={() => navigation.navigate('TransactionDetail')}>
+              onPress={() =>
+                navigation.navigate('Transfer', {
+                  screen: 'SendInit',
+                  params: {id: 'FROM_REQUEST', data: item},
+                })
+              }>
               <Row>
                 <Text style={styles.textTitle}>{item?.name}</Text>
-                <Text style={styles.textPrice}>Price</Text>
+                <Text style={styles.textPrice}>
+                  {formatRupiah(item?.price)}
+                </Text>
               </Row>
             </Touchable>
           )}

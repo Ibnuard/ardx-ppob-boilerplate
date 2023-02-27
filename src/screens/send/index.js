@@ -29,14 +29,28 @@ const SendScreen = ({navigation, route}) => {
   //pin
   const [showPin, setShowPin] = React.useState(false);
 
+  // === PARAMS
+  const IS_FROM_REQUEST = route?.params?.id;
+  const DATA_FROM_REQUEST = route?.params?.data;
+
   // ========= GET SELECTED CONTACT
-  const SELECTED_CONTACT = route?.params?.phone ?? '';
+  const SELECTED_CONTACT = IS_FROM_REQUEST
+    ? DATA_FROM_REQUEST?.name
+    : route?.params?.phone ?? '';
 
   useFocusEffect(
     React.useCallback(() => {
       if (SELECTED_CONTACT?.length) {
         const getNumber = normalizeNumber(SELECTED_CONTACT);
         setReceiver(getNumber);
+      }
+
+      if (IS_FROM_REQUEST) {
+        const requestAmount = formatRupiah(DATA_FROM_REQUEST?.price);
+
+        //set state
+        setAmount(requestAmount);
+        setMessage(DATA_FROM_REQUEST?.message ?? '');
       }
     }, [SELECTED_CONTACT]),
   );
@@ -57,32 +71,41 @@ const SendScreen = ({navigation, route}) => {
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Heading>Transfer</Heading>
-        <SubHeading>Masukan atau pilih nomor ponsel</SubHeading>
+        <SubHeading>
+          {IS_FROM_REQUEST
+            ? 'Tranfer dari request'
+            : 'Masukan atau pilih nomor ponsel'}
+        </SubHeading>
       </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.contactContainer}>
-        <Row px={24}>
+        <Row px={IS_FROM_REQUEST ? 0 : 24}>
           <Input
             theme={'material'}
+            editable={!IS_FROM_REQUEST}
+            label={IS_FROM_REQUEST ? 'Nomor Penerima' : null}
             placeholder={'Masukan Nomor Ponsel'}
             value={receiver}
             keyboardType={'phone-pad'}
             onChangeText={text => setReceiver(text)}
           />
-          <Touchable
-            style={styles.contactButton}
-            onPress={() =>
-              navigation.navigate('Contact', {target: 'SendInit'})
-            }>
-            <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
-          </Touchable>
+          {!IS_FROM_REQUEST && (
+            <Touchable
+              style={styles.contactButton}
+              onPress={() =>
+                navigation.navigate('Contact', {target: 'SendInit'})
+              }>
+              <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
+            </Touchable>
+          )}
         </Row>
         <View style={styles.nominalContainer}>
           <Text>Nominal Tranfer</Text>
           <TextInput
             style={styles.input}
             value={amount}
+            editable={!IS_FROM_REQUEST}
             keyboardType={'phone-pad'}
             onChangeText={text => setAmount(formatRupiah(text))}
           />
@@ -92,6 +115,7 @@ const SendScreen = ({navigation, route}) => {
             theme={'material'}
             label={'Masukan pesan (opsional)'}
             value={message}
+            editable={!IS_FROM_REQUEST}
             onChangeText={text => setMessage(text)}
           />
         </View>

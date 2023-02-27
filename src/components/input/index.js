@@ -56,10 +56,6 @@ const Input = props => {
           style={[
             styles.labelContainer,
             {
-              // top: focusAnim.interpolate({
-              //   inputRange: [0, 1],
-              //   outputRange: [14, -14],
-              // }),
               transform: [
                 {
                   scale: focusAnim.interpolate({
@@ -76,7 +72,7 @@ const Input = props => {
                 {
                   translateX: focusAnim.interpolate({
                     inputRange: [0, 1],
-                    outputRange: [0, -14],
+                    outputRange: [0, -16],
                   }),
                 },
               ],

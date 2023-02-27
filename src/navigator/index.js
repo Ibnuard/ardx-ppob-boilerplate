@@ -368,6 +368,13 @@ const InboxStack = () => {
           },
         }}
       />
+      <Stack.Screen
+        name="Transfer"
+        component={SendStack}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
