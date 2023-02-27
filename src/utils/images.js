@@ -11,6 +11,7 @@ export const IMG = {
     pay: require('../../assets/images/ic_pay.png'),
     send: require('../../assets/images/ic_send.png'),
     request: require('../../assets/images/ic_request.png'),
+    inbox: require('../../assets/images/ic_inbox.png'),
   },
   services: {
     pulsa: require('../../assets/images/ic_service_pulsa.png'),

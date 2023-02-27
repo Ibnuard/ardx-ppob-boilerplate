@@ -20,6 +20,7 @@ import ContactScreen from '../screens/contacts';
 import {headerVisibility} from '../utils/utils';
 import TransactionDetailScreen from '../screens/transactiondetail';
 import RequestScreen from '../screens/request';
+import HistoryScreen from '../screens/history';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -133,8 +134,9 @@ export const MainScreen = () => {
       />
       <Stack.Screen
         name="HistoryStack"
-        component={ProfileStack}
+        component={HistoryStack}
         options={{
+          headerShown: false,
           title: 'History',
         }}
       />
@@ -304,6 +306,25 @@ const ProfileStack = () => {
         component={ProfileScreen}
         options={{
           title: 'Profile',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== PROFILE STACK
+const HistoryStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="HistoryInit"
+        component={HistoryScreen}
+        options={{
+          title: 'History',
           headerShadowVisible: false,
           headerTitleStyle: {
             ...Typo.TextLargeBold,

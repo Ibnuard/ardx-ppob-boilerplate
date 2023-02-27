@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
 
   textVersion: {
-    ...Typo.TextSmallBold,
+    ...Typo.TextExtraSmallBold,
     color: Colors.BLACK_SECONDARY,
     alignSelf: 'center',
     paddingVertical: Size.SIZE_24,

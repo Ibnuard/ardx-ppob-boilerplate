@@ -12,6 +12,7 @@ import ExpandableView from './expandable';
 import BottomSheet from './bottomsheet';
 import PinBottomSheet from './pinbottomsheet';
 import RenderState from './renderstate';
+import StatusBarWhite from './statusbarwhite';
 
 export {
   Button,
@@ -28,4 +29,5 @@ export {
   BottomSheet,
   PinBottomSheet,
   RenderState,
+  StatusBarWhite,
 };

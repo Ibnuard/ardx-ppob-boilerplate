@@ -1,9 +1,3 @@
-import {
-  getFocusedRouteNameFromRoute,
-  useFocusEffect,
-} from '@react-navigation/native';
-import * as React from 'react';
-
 //create simple log
 export const cLog = (log = '', color) => {
   const _selectColor = () => {

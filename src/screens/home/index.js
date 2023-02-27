@@ -16,10 +16,20 @@ import {IMG} from '../../utils/images';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Carousel from 'react-native-reanimated-carousel';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {useFocusEffect} from '@react-navigation/native';
 
 const HomeScreen = ({navigation}) => {
   //const DIM
   const {width} = Dimensions.get('window');
+
+  // ===== SET STATUS BAR
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setBackgroundColor(Colors.COLOR_SECONDARY);
+
+      return () => StatusBar.setBackgroundColor(Colors.COLOR_WHITE);
+    }, []),
+  );
 
   //service icon static
   const SERVICES_BUTTON = [
@@ -46,6 +56,29 @@ const HomeScreen = ({navigation}) => {
     {
       title: 'Games',
       icon: IMG.services.games,
+    },
+  ];
+
+  const TOP_SERVICE = [
+    {
+      title: 'Top Up',
+      id: 'TopUp',
+      icon: IMG.icon.topup,
+    },
+    {
+      title: 'Transfer',
+      id: 'Send',
+      icon: IMG.icon.send,
+    },
+    {
+      title: 'Request',
+      id: 'Request',
+      icon: IMG.icon.request,
+    },
+    {
+      title: 'Inbox',
+      id: 'Inbox',
+      icon: IMG.icon.inbox,
     },
   ];
 
@@ -94,44 +127,21 @@ const HomeScreen = ({navigation}) => {
             </View>
           </Row>
           <Row mt={24}>
-            <Touchable
-              style={styles.cardButton}
-              onPress={() => navigation.navigate('TopUp')}>
-              <Image
-                source={IMG.icon.topup}
-                style={styles.iconButton}
-                resizeMode={'contain'}
-              />
-              <Text style={styles.textButton}>Top up</Text>
-            </Touchable>
-            <Touchable style={styles.cardButton}>
-              <Image
-                source={IMG.icon.pay}
-                style={styles.iconButton}
-                resizeMode={'contain'}
-              />
-              <Text style={styles.textButton}>Pay</Text>
-            </Touchable>
-            <Touchable
-              style={styles.cardButton}
-              onPress={() => navigation.navigate('Send')}>
-              <Image
-                source={IMG.icon.send}
-                style={styles.iconButton}
-                resizeMode={'contain'}
-              />
-              <Text style={styles.textButton}>Send</Text>
-            </Touchable>
-            <Touchable
-              style={styles.cardButton}
-              onPress={() => navigation.navigate('Request')}>
-              <Image
-                source={IMG.icon.request}
-                style={styles.iconButton}
-                resizeMode={'contain'}
-              />
-              <Text style={styles.textButton}>Request</Text>
-            </Touchable>
+            {TOP_SERVICE.map((item, index) => {
+              return (
+                <Touchable
+                  key={index}
+                  style={styles.cardButton}
+                  onPress={() => navigation.navigate(item.id)}>
+                  <Image
+                    source={item.icon}
+                    style={styles.iconButton}
+                    resizeMode={'contain'}
+                  />
+                  <Text style={styles.textButton}>{item.title}</Text>
+                </Touchable>
+              );
+            })}
           </Row>
         </View>
       </View>
