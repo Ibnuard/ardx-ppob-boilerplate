@@ -21,6 +21,7 @@ import {headerVisibility} from '../utils/utils';
 import TransactionDetailScreen from '../screens/transactiondetail';
 import RequestScreen from '../screens/request';
 import HistoryScreen from '../screens/history';
+import InboxScreen from '../screens/inbox';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -190,6 +191,13 @@ const HomeStack = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="Inbox"
+        component={InboxStack}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -316,7 +324,7 @@ const ProfileStack = () => {
   );
 };
 
-// =============== PROFILE STACK
+// =============== HISTORY STACK
 const HistoryStack = () => {
   return (
     <Stack.Navigator>
@@ -339,6 +347,25 @@ const HistoryStack = () => {
           headerShadowVisible: false,
           animation: 'slide_from_right',
           animationDuration: 100,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== PROFILE STACK
+const InboxStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="InboxInit"
+        component={InboxScreen}
+        options={{
+          title: 'Inbox',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
         }}
       />
     </Stack.Navigator>

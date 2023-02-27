@@ -1,3 +1,5 @@
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+
 //create simple log
 export const cLog = (log = '', color) => {
   const _selectColor = () => {
@@ -140,4 +142,11 @@ export const groupingArraybyDate = (arr = []) => {
   }
 
   return temp;
+};
+
+// ============ CREATE TOP TAB
+export const CreateTopTabBar = () => {
+  const Tab = createMaterialTopTabNavigator();
+
+  return Tab;
 };
