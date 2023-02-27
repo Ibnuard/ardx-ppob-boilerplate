@@ -331,6 +331,16 @@ const HistoryStack = () => {
           },
         }}
       />
+      <Stack.Screen
+        name="TransactionDetail"
+        component={TransactionDetailScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          animationDuration: 100,
+        }}
+      />
     </Stack.Navigator>
   );
 };

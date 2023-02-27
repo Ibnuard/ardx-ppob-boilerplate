@@ -110,5 +110,34 @@ export const normalizeNumber = (num = '') => {
     return base.substring(2);
   }
 
+  if (base.charAt(0) == '0' && base.charAt(1) == '8') {
+    return base.substring(1);
+  }
+
   return base;
+};
+
+// ========== GROUP ARRAY BY DATE
+export const groupingArraybyDate = (arr = []) => {
+  const grouping = arr.reduce((group, date) => {
+    const {createdDate} = date;
+    group[createdDate] = group[createdDate] ?? [];
+    group[createdDate].push(date);
+    return group;
+  }, {});
+
+  const objEnt = Object.entries(grouping);
+
+  let temp = [];
+
+  for (let i = 0; i < objEnt.length; i++) {
+    const base = {
+      title: objEnt[i][0],
+      data: objEnt[i][1],
+    };
+
+    temp.push(base);
+  }
+
+  return temp;
 };

@@ -20,3 +20,4 @@ export const BLACK_SECONDARY = '#686C71';
 //OTHER
 export const COLOR_TRANSPARENT = 'transparent';
 export const COLOR_DESCRIPTION = '#A0A0A0';
+export const COLOR_LIME = '#ACF9AA';
