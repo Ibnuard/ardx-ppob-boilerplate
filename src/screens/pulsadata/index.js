@@ -10,15 +10,41 @@ import {
 import React from 'react';
 import {Colors, Scaler, Size, Typo} from '../../styles';
 import {IMG} from '../../utils/images';
-import {Card, Input, PriceCard, Row, Touchable} from '../../components';
+import {
+  Card,
+  DetailBottomSheet,
+  Input,
+  PriceCard,
+  Row,
+  Touchable,
+} from '../../components';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {useFocusEffect} from '@react-navigation/native';
+import {normalizeNumber} from '../../utils/utils';
 
-const PulsaDataScreen = () => {
+const PulsaDataScreen = ({navigation, route}) => {
   // === STATE
   const [phone, setPhone] = React.useState();
+  const [selectedItem, setSelectedItem] = React.useState();
+  const [showInfo, setShowInfo] = React.useState(false);
+
+  //VAR
+  const SELECTED_CONTACT = route?.params?.phone ?? '';
+
   // ==== INITIALIZE TAB-BAR
   const Tab = createMaterialTopTabNavigator();
+
+  // == HANDLE SELECETD CONTACT
+  useFocusEffect(
+    React.useCallback(() => {
+      if (SELECTED_CONTACT.length > 0) {
+        const number = normalizeNumber(SELECTED_CONTACT);
+
+        setPhone(number);
+      }
+    }, [SELECTED_CONTACT]),
+  );
 
   //DUMMY PULSA
   const EX_PULSA = [
@@ -79,7 +105,15 @@ const PulsaDataScreen = () => {
           }}
           showsVerticalScrollIndicator={false}
           numColumns={2}
-          renderItem={({item, index}) => <PriceCard item={item} />}
+          renderItem={({item, index}) => (
+            <PriceCard
+              item={item}
+              onPress={() => {
+                setSelectedItem(item);
+                setShowInfo(true);
+              }}
+            />
+          )}
         />
       </View>
     );
@@ -96,7 +130,9 @@ const PulsaDataScreen = () => {
           }}
           showsVerticalScrollIndicator={false}
           numColumns={1}
-          renderItem={({item, index}) => <PriceCard item={item} useTitle />}
+          renderItem={({item, index}) => (
+            <PriceCard item={item} useTitle onPress={() => setShowInfo(true)} />
+          )}
         />
       </View>
     );
@@ -126,7 +162,12 @@ const PulsaDataScreen = () => {
           label={'Nomor Ponsel'}
           value={phone}
           onChangeText={text => setPhone(text)}
+          showClear={phone}
+          onClearPress={() => setPhone()}
           showContact
+          onContactPress={() =>
+            navigation.navigate('Contact', {target: 'PulsaDataInit'})
+          }
         />
       </View>
 
@@ -159,6 +200,11 @@ const PulsaDataScreen = () => {
           }}
         />
       </Tab.Navigator>
+      <DetailBottomSheet
+        visible={showInfo}
+        data={selectedItem}
+        onCancelButtonPress={() => setShowInfo(false)}
+      />
     </View>
   );
 };

@@ -2,19 +2,22 @@ import {Dimensions, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors, Size, Typo} from '../../styles';
 import {formatRupiah} from '../../utils/utils';
+import Touchable from '../touchable';
 
-export default function PriceCard({item, useTitle}) {
+export default function PriceCard({item, useTitle, onPress}) {
   return (
     <View style={{flex: 0.5}}>
-      <View style={styles.container}>
-        <Text style={styles.textNominal}>
-          {useTitle ? item?.nominal : formatRupiah(item?.nominal, false)}
-        </Text>
-        <View>
-          <Text style={styles.textDesc}>Harga</Text>
-          <Text style={styles.textPrice}>{formatRupiah(item?.price)}</Text>
+      <Touchable onPress={onPress}>
+        <View style={styles.container}>
+          <Text style={styles.textNominal}>
+            {useTitle ? item?.nominal : formatRupiah(item?.nominal, false)}
+          </Text>
+          <View>
+            <Text style={styles.textDesc}>Harga</Text>
+            <Text style={styles.textPrice}>{formatRupiah(item?.price)}</Text>
+          </View>
         </View>
-      </View>
+      </Touchable>
     </View>
   );
 }

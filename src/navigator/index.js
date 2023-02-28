@@ -459,10 +459,14 @@ const PulsaDataStack = () => {
         }}
       />
       <Stack.Screen
-        name="Transfer"
-        component={SendStack}
+        name="Contact"
+        component={ContactScreen}
         options={{
-          headerShown: false,
+          headerShown: true,
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          animationDuration: 100,
         }}
       />
     </Stack.Navigator>

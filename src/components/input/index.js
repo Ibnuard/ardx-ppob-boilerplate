@@ -103,6 +103,12 @@ const Input = props => {
         secureTextEntry={isSecure}
       />
 
+      {props?.showClear && (
+        <Touchable style={styles.close} onPress={props?.onClearPress}>
+          <Icon name="close" size={16} color={Colors.COLOR_DESCRIPTION} />
+        </Touchable>
+      )}
+
       {props?.showContact && (
         <Touchable style={styles.contactButton} onPress={props?.onContactPress}>
           <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
@@ -179,6 +185,10 @@ const styles = StyleSheet.create({
   contactButton: {
     paddingHorizontal: Size.SIZE_8,
     marginLeft: Size.SIZE_12,
+  },
+
+  close: {
+    paddingLeft: Size.SIZE_8,
   },
 
   // ============= TEXT STYLE

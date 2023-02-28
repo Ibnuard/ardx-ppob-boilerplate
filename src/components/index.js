@@ -10,10 +10,11 @@ import Touchable from './touchable';
 import SubHeading from './subheading';
 import ExpandableView from './expandable';
 import BottomSheet from './bottomsheet';
-import PinBottomSheet from './pinbottomsheet';
+import PinBottomSheet from './detailbottomsheet';
 import RenderState from './renderstate';
 import StatusBarWhite from './statusbarwhite';
 import PriceCard from './pricecard';
+import DetailBottomSheet from './detailbottomsheet';
 
 export {
   Button,
@@ -32,4 +33,5 @@ export {
   RenderState,
   StatusBarWhite,
   PriceCard,
+  DetailBottomSheet,
 };
