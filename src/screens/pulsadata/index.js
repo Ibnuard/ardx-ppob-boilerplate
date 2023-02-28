@@ -39,7 +39,7 @@ const PulsaDataScreen = ({navigation, route}) => {
       setSelectedItem({...item, phone: phone});
       setShowInfo(true);
     },
-    [selectedItem],
+    [selectedItem, phone],
   );
 
   // == HANDLE SELECETD CONTACT
