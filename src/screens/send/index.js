@@ -94,7 +94,7 @@ const SendScreen = ({navigation, route}) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.contactContainer}>
-        <Row px={IS_FROM_REQUEST ? 0 : 24}>
+        <Row>
           <Input
             theme={'material'}
             editable={!IS_FROM_REQUEST}
@@ -103,16 +103,11 @@ const SendScreen = ({navigation, route}) => {
             value={receiver}
             keyboardType={'phone-pad'}
             onChangeText={text => setReceiver(text)}
+            showContact={!IS_FROM_REQUEST}
+            onContactPress={() =>
+              navigation.navigate('Contact', {target: 'SendInit'})
+            }
           />
-          {!IS_FROM_REQUEST && (
-            <Touchable
-              style={styles.contactButton}
-              onPress={() =>
-                navigation.navigate('Contact', {target: 'SendInit'})
-              }>
-              <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
-            </Touchable>
-          )}
         </Row>
         <View style={styles.nominalContainer}>
           <Text>Nominal Tranfer</Text>

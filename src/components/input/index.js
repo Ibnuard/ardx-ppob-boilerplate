@@ -11,7 +11,6 @@ import React from 'react';
 import {Colors, Size, Typo} from '../../styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Touchable from '../touchable';
-import {IMG} from '../../utils/images';
 
 const Input = props => {
   const [isFocus, setIsFocus] = React.useState(false);
@@ -104,6 +103,12 @@ const Input = props => {
         secureTextEntry={isSecure}
       />
 
+      {props?.showContact && (
+        <Touchable style={styles.contactButton} onPress={props?.onContactPress}>
+          <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
+        </Touchable>
+      )}
+
       {props?.showEye && (
         <Touchable
           style={styles.showEye}
@@ -169,6 +174,11 @@ const styles = StyleSheet.create({
   input: {
     ...Typo.TextNormalMedium,
     flex: 1,
+  },
+
+  contactButton: {
+    paddingHorizontal: Size.SIZE_8,
+    marginLeft: Size.SIZE_12,
   },
 
   // ============= TEXT STYLE

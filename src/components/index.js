@@ -13,6 +13,7 @@ import BottomSheet from './bottomsheet';
 import PinBottomSheet from './pinbottomsheet';
 import RenderState from './renderstate';
 import StatusBarWhite from './statusbarwhite';
+import PriceCard from './pricecard';
 
 export {
   Button,
@@ -30,4 +31,5 @@ export {
   PinBottomSheet,
   RenderState,
   StatusBarWhite,
+  PriceCard,
 };

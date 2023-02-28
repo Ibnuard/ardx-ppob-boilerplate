@@ -22,6 +22,7 @@ import TransactionDetailScreen from '../screens/transactiondetail';
 import RequestScreen from '../screens/request';
 import HistoryScreen from '../screens/history';
 import InboxScreen from '../screens/inbox';
+import PulsaDataScreen from '../screens/pulsadata';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -205,6 +206,13 @@ const HomeStack = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="PulsaData"
+        component={PulsaDataStack}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -380,7 +388,7 @@ const HistoryStack = () => {
   );
 };
 
-// =============== HISTORY STACK
+// =============== NOTIFICATION STACK
 const NotificationStack = () => {
   return (
     <Stack.Navigator>
@@ -409,7 +417,7 @@ const NotificationStack = () => {
   );
 };
 
-// =============== PROFILE STACK
+// =============== INBOX STACK
 const InboxStack = () => {
   return (
     <Stack.Navigator>
@@ -418,6 +426,32 @@ const InboxStack = () => {
         component={InboxScreen}
         options={{
           title: 'Inbox',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Transfer"
+        component={SendStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== PULSA DATA STACK
+const PulsaDataStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="PulsaDataInit"
+        component={PulsaDataScreen}
+        options={{
+          title: 'Pulsa & Paket Data',
           headerShadowVisible: false,
           headerTitleStyle: {
             ...Typo.TextLargeBold,

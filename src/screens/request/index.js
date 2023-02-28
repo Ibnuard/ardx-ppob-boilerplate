@@ -77,21 +77,18 @@ const RequestScreen = ({navigation, route}) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.contactContainer}>
-        <Row px={24}>
+        <Row>
           <Input
             theme={'material'}
             placeholder={'Masukan Nomor Ponsel'}
             value={receiver}
             keyboardType={'phone-pad'}
             onChangeText={text => setReceiver(text)}
-          />
-          <Touchable
-            style={styles.contactButton}
-            onPress={() =>
+            showContact
+            onContactPress={() =>
               navigation.navigate('Contact', {target: 'RequestInit'})
-            }>
-            <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
-          </Touchable>
+            }
+          />
         </Row>
         <View style={styles.nominalContainer}>
           <Text>Nominal Request</Text>

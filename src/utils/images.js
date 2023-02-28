@@ -1,6 +1,7 @@
 export const IMG = {
   authBg: require('../../assets/images/authBg.png'),
   cardBg: require('../../assets/images/cardBg.png'),
+  headerSmallBg: require('../../assets/images/ic_headersmall.png'),
   idFlag: require('../../assets/images/id.png'),
   logo: require('../../assets/images/logo.png'),
   boarding: {
