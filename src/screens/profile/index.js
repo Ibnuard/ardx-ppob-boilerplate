@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 const ProfileScreen = ({navigation}) => {
   const MENU = [
     {title: 'Verifikasi Akun', id: 'VerifyAccount'},
-    {title: 'Ganti PIN', id: 'VerifyAccount'},
+    {title: 'Ganti PIN', id: 'ChangePIN'},
     {title: 'Bantuan', id: 'VerifyAccount'},
     {title: 'Syarat dan Ketentuan', id: 'VerifyAccount'},
     {title: 'Keluar', id: 'VerifyAccount'},
@@ -35,7 +35,14 @@ const ProfileScreen = ({navigation}) => {
       <View>
         {MENU.map((item, index) => {
           return (
-            <Touchable key={index}>
+            <Touchable
+              key={index}
+              onPress={() =>
+                navigation.navigate(item?.id, {
+                  screen: `${item?.id}Init`,
+                  params: {},
+                })
+              }>
               <Row style={styles.card}>
                 <Text style={styles.textCardTitle}>{item?.title}</Text>
                 <Icon name="right" size={16} color={Colors.BLACK_SECONDARY} />

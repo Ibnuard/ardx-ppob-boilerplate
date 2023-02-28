@@ -28,13 +28,22 @@ const PinModalScreen = props => {
   const handleTitleById = () => {
     if (NAV_ID == 'LOGIN') {
       return 'Masukan PIN';
-    } else if (NAV_ID == 'FORGOT_PIN' || NAV_ID == 'REGISTER_OTP') {
+    } else if (
+      NAV_ID == 'FORGOT_PIN' ||
+      NAV_ID == 'REGISTER_OTP' ||
+      NAV_ID == 'CHANGE_PIN'
+    ) {
       return 'Masukan OTP';
-    } else if (NAV_ID == 'CREATE_NEW_PIN' || NAV_ID == 'REGISTER') {
+    } else if (
+      NAV_ID == 'CREATE_NEW_PIN' ||
+      NAV_ID == 'REGISTER' ||
+      NAV_ID == 'UPDATE_NEW_PIN'
+    ) {
       return 'Buat PIN';
     } else if (
       NAV_ID == 'CONFIRM_NEW_PIN' ||
-      NAV_ID == 'REGISTER_CONFIRM_PIN'
+      NAV_ID == 'REGISTER_CONFIRM_PIN' ||
+      NAV_ID == 'CONFIRM_UPDATE_PIN'
     ) {
       return 'Konfirmasi PIN';
     } else {
@@ -101,6 +110,28 @@ const PinModalScreen = props => {
         {
           setCode();
           navigation.navigate(TARGET, {confirmed: true});
+        }
+        break;
+      case 'CHANGE_PIN':
+        {
+          setCode();
+          navigation.navigate('PinModal', {id: 'UPDATE_NEW_PIN', type: 'PIN'});
+        }
+        break;
+      case 'UPDATE_NEW_PIN':
+        {
+          setCode();
+          navigation.navigate('PinModal', {
+            id: 'CONFIRM_UPDATE_PIN',
+            type: 'PIN',
+          });
+        }
+        break;
+      case 'CONFIRM_UPDATE_PIN':
+        {
+          setCode();
+          const parent = navigation.getParent();
+          parent.goBack();
         }
         break;
 

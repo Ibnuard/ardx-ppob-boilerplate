@@ -23,6 +23,7 @@ import RequestScreen from '../screens/request';
 import HistoryScreen from '../screens/history';
 import InboxScreen from '../screens/inbox';
 import PulsaDataScreen from '../screens/pulsadata';
+import ChangePINScreen from '../screens/changepin';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -353,6 +354,45 @@ const ProfileStack = () => {
           headerTitleStyle: {
             ...Typo.TextLargeBold,
           },
+        }}
+      />
+      <Stack.Screen
+        name="ChangePIN"
+        component={ChangePinStack}
+        options={{
+          title: '',
+          headerShown: false,
+          headerShadowVisible: false,
+          animationDuration: 5,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== CHANGE PIN STACK
+const ChangePinStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="ChangePINInit"
+        component={ChangePINScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="PinModal"
+        component={PinModalScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_bottom',
+          animationDuration: 5,
         }}
       />
     </Stack.Navigator>
