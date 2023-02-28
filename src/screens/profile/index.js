@@ -3,14 +3,18 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import {Heading, Row, Touchable} from '../../components';
 import {Colors, Scaler, Size, Typo} from '../../styles';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {AuthContext} from '../../context';
 
 const ProfileScreen = ({navigation}) => {
+  // === CONTEXT
+  const {signOut} = React.useContext(AuthContext);
+
   const MENU = [
     {title: 'Verifikasi Akun', id: 'VerifyAccount'},
     {title: 'Ganti PIN', id: 'ChangePIN'},
     {title: 'Bantuan', id: 'VerifyAccount'},
     {title: 'Syarat dan Ketentuan', id: 'VerifyAccount'},
-    {title: 'Keluar', id: 'VerifyAccount'},
+    {title: 'Keluar', id: 'LOGOUT'},
   ];
 
   return (
@@ -37,12 +41,17 @@ const ProfileScreen = ({navigation}) => {
           return (
             <Touchable
               key={index}
-              onPress={() =>
-                navigation.navigate(item?.id, {
-                  screen: `${item?.id}Init`,
-                  params: {},
-                })
-              }>
+              onPress={() => {
+                // == CHECK IF NOT SIGN OUT FUNCT
+                if (item?.id !== 'LOGOUT') {
+                  navigation.navigate(item?.id, {
+                    screen: `${item?.id}Init`,
+                    params: {},
+                  });
+                } else {
+                  signOut();
+                }
+              }}>
               <Row style={styles.card}>
                 <Text style={styles.textCardTitle}>{item?.title}</Text>
                 <Icon name="right" size={16} color={Colors.BLACK_SECONDARY} />

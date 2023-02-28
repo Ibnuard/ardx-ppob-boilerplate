@@ -112,12 +112,14 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.header}>
         <Row>
           <Row flex={1}>
-            <Image
-              source={{
-                uri: 'https://i.ytimg.com/vi/K_7gFTa9tg0/maxresdefault.jpg',
-              }}
-              style={styles.profileImage}
-            />
+            <Touchable onPress={() => navigation.jumpTo('ProfileStack')}>
+              <Image
+                source={{
+                  uri: 'https://i.ytimg.com/vi/K_7gFTa9tg0/maxresdefault.jpg',
+                }}
+                style={styles.profileImage}
+              />
+            </Touchable>
             <View style={styles.nameContainer}>
               <Text style={styles.textName}>Hi, Wang Jarim</Text>
             </View>
