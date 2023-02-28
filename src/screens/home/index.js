@@ -99,7 +99,9 @@ const HomeScreen = ({navigation}) => {
             </View>
           </Row>
 
-          <Touchable style={styles.notifButton}>
+          <Touchable
+            style={styles.notifButton}
+            onPress={() => navigation.navigate('Notification')}>
             <Icon
               name="md-notifications-outline"
               size={20}

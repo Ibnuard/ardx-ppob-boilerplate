@@ -198,6 +198,13 @@ const HomeStack = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="Notification"
+        component={NotificationStack}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -353,6 +360,35 @@ const HistoryStack = () => {
         component={HistoryScreen}
         options={{
           title: 'History',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="TransactionDetail"
+        component={TransactionDetailScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          animationDuration: 100,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== HISTORY STACK
+const NotificationStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="NotificationInit"
+        component={HistoryScreen}
+        options={{
+          title: 'Notifikasi',
           headerShadowVisible: false,
           headerTitleStyle: {
             ...Typo.TextLargeBold,
