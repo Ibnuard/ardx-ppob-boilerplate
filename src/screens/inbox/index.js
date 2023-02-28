@@ -40,7 +40,7 @@ const InboxScreen = ({navigation}) => {
   const NORMALIZE_DATA = groupingArraybyDate(EX_DATA);
 
   // ==== RENDER LIST SCREEN
-  function _renderListScreen() {
+  function _renderListRequestScreen() {
     return (
       <View style={styles.container}>
         <SectionList
@@ -56,7 +56,43 @@ const InboxScreen = ({navigation}) => {
                 })
               }>
               <Row>
-                <Text style={styles.textTitle}>{item?.name}</Text>
+                <Text style={styles.textTitle}>
+                  Permintaan dari {item?.name}
+                </Text>
+                <Text style={styles.textPrice}>
+                  {formatRupiah(item?.price)}
+                </Text>
+              </Row>
+            </Touchable>
+          )}
+          renderSectionHeader={({section: {title}}) => (
+            <View style={styles.cardHeader}>
+              <Text style={styles.textHeader}>{PARSE_MOMENT_ONLY(title)}</Text>
+            </View>
+          )}
+        />
+      </View>
+    );
+  }
+
+  // ==== RENDER LIST SCREEN
+  function _renderListMyRequestScreen() {
+    return (
+      <View style={styles.container}>
+        <SectionList
+          sections={NORMALIZE_DATA}
+          keyExtractor={(item, index) => item + index}
+          renderItem={({item}) => (
+            <Touchable
+              style={styles.card}
+              onPress={() =>
+                navigation.navigate('Transfer', {
+                  screen: 'SendInit',
+                  params: {id: 'FROM_REQUEST', data: item},
+                })
+              }>
+              <Row>
+                <Text style={styles.textTitle}>Permintaan ke {item?.name}</Text>
                 <Text style={styles.textPrice}>
                   {formatRupiah(item?.price)}
                 </Text>
@@ -88,14 +124,14 @@ const InboxScreen = ({navigation}) => {
         }}>
         <Tab.Screen
           name="Request"
-          component={_renderListScreen}
+          component={_renderListRequestScreen}
           options={{
             title: 'Request',
           }}
         />
         <Tab.Screen
           name="MyRequest"
-          component={_renderListScreen}
+          component={_renderListMyRequestScreen}
           options={{
             title: 'My Request',
           }}

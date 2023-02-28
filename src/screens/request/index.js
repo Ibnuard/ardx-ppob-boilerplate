@@ -12,13 +12,14 @@ import {
   Card,
   Heading,
   Input,
+  Modal,
   PinBottomSheet,
   Row,
   SubHeading,
   Touchable,
 } from '../../components';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {formatRupiah, normalizeNumber} from '../../utils/utils';
+import {formatRupiah, normalizeNumber, wait} from '../../utils/utils';
 import {useFocusEffect} from '@react-navigation/native';
 
 const RequestScreen = ({navigation, route}) => {
@@ -26,19 +27,33 @@ const RequestScreen = ({navigation, route}) => {
   const [receiver, setReceiver] = React.useState();
   const [message, setMessage] = React.useState();
 
-  //pin
-  const [showPin, setShowPin] = React.useState(false);
+  //other
+  const [isLoading, setIsLoading] = React.useState(false);
 
   // ========= GET SELECTED CONTACT
   const SELECTED_CONTACT = route?.params?.phone ?? '';
+  const IS_TRX_CONFIRMED = route?.params?.confirmed;
 
   useFocusEffect(
+    // == HANDLE SELECETD CONTACT
     React.useCallback(() => {
+      // === HANDLE PHONE NUMBER
       if (SELECTED_CONTACT?.length) {
         const getNumber = normalizeNumber(SELECTED_CONTACT);
         setReceiver(getNumber);
       }
-    }, [SELECTED_CONTACT]),
+
+      // === HANDLE IF TRX CONFIRMED ( PIN )
+      if (IS_TRX_CONFIRMED) {
+        setIsLoading(true);
+        wait(2000).then(() => {
+          setIsLoading(false);
+          gotoDetail();
+        });
+      }
+
+      return;
+    }, [SELECTED_CONTACT, IS_TRX_CONFIRMED]),
   );
 
   // ========= GOTO DETAIL
@@ -97,16 +112,18 @@ const RequestScreen = ({navigation, route}) => {
         </View>
       </KeyboardAvoidingView>
       <View style={styles.bottomContainer}>
-        <Button title="Lanjut" onPress={() => setShowPin(true)} />
+        <Button
+          title="Lanjut"
+          onPress={() =>
+            navigation.navigate('PinModal', {
+              id: 'TRANSACTION',
+              type: 'PIN',
+              target: 'RequestInit',
+            })
+          }
+        />
       </View>
-      <PinBottomSheet
-        visible={showPin}
-        onBackPress={() => setShowPin(false)}
-        onFilled={() => {
-          setShowPin(false);
-          gotoDetail();
-        }}
-      />
+      <Modal type={'loading'} visible={isLoading} />
     </View>
   );
 };

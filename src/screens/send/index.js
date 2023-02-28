@@ -9,16 +9,15 @@ import React from 'react';
 import {Colors, Size, Typo} from '../../styles';
 import {
   Button,
-  Card,
   Heading,
   Input,
-  PinBottomSheet,
+  Modal,
   Row,
   SubHeading,
   Touchable,
 } from '../../components';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {formatRupiah, normalizeNumber} from '../../utils/utils';
+import {formatRupiah, normalizeNumber, wait} from '../../utils/utils';
 import {useFocusEffect} from '@react-navigation/native';
 
 const SendScreen = ({navigation, route}) => {
@@ -26,12 +25,13 @@ const SendScreen = ({navigation, route}) => {
   const [receiver, setReceiver] = React.useState();
   const [message, setMessage] = React.useState();
 
-  //pin
-  const [showPin, setShowPin] = React.useState(false);
+  //other
+  const [isLoading, setIsLoading] = React.useState(false);
 
   // === PARAMS
   const IS_FROM_REQUEST = route?.params?.id;
   const DATA_FROM_REQUEST = route?.params?.data;
+  const IS_TRX_CONFIRMED = route?.params?.confirmed;
 
   // ========= GET SELECTED CONTACT
   const SELECTED_CONTACT = IS_FROM_REQUEST
@@ -39,12 +39,15 @@ const SendScreen = ({navigation, route}) => {
     : route?.params?.phone ?? '';
 
   useFocusEffect(
+    // == HANDLE SELECETD CONTACT
     React.useCallback(() => {
+      // === HANDLE PHONE NUMBER
       if (SELECTED_CONTACT?.length) {
         const getNumber = normalizeNumber(SELECTED_CONTACT);
         setReceiver(getNumber);
       }
 
+      // === HANDLE ON CONTACT SELECTED DATA
       if (IS_FROM_REQUEST) {
         const requestAmount = formatRupiah(DATA_FROM_REQUEST?.price);
 
@@ -52,7 +55,18 @@ const SendScreen = ({navigation, route}) => {
         setAmount(requestAmount);
         setMessage(DATA_FROM_REQUEST?.message ?? '');
       }
-    }, [SELECTED_CONTACT]),
+
+      // === HANDLE IF TRX CONFIRMED ( PIN )
+      if (IS_TRX_CONFIRMED) {
+        setIsLoading(true);
+        wait(2000).then(() => {
+          setIsLoading(false);
+          gotoDetail();
+        });
+      }
+
+      return;
+    }, [SELECTED_CONTACT, IS_TRX_CONFIRMED]),
   );
 
   // ========= GOTO DETAIL
@@ -121,16 +135,18 @@ const SendScreen = ({navigation, route}) => {
         </View>
       </KeyboardAvoidingView>
       <View style={styles.bottomContainer}>
-        <Button title="Lanjut" onPress={() => setShowPin(true)} />
+        <Button
+          title="Lanjut"
+          onPress={() =>
+            navigation.navigate('PinModal', {
+              id: 'TRANSACTION',
+              type: 'PIN',
+              target: 'SendInit',
+            })
+          }
+        />
       </View>
-      <PinBottomSheet
-        visible={showPin}
-        onBackPress={() => setShowPin(false)}
-        onFilled={() => {
-          setShowPin(false);
-          gotoDetail();
-        }}
-      />
+      <Modal type={'loading'} visible={isLoading} />
     </View>
   );
 };

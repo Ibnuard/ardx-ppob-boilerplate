@@ -22,6 +22,7 @@ const PinModalScreen = props => {
   // ========== NAV ID / TYPE
   const NAV_ID = route?.params?.id;
   const TYPE = route?.params?.type || props?.type;
+  const TARGET = route?.params?.target;
 
   // ========= HANDLE SCREEN TITLE
   const handleTitleById = () => {
@@ -94,6 +95,12 @@ const PinModalScreen = props => {
         {
           setCode();
           navigation.popToTop();
+        }
+        break;
+      case 'TRANSACTION':
+        {
+          setCode();
+          navigation.navigate(TARGET, {confirmed: true});
         }
         break;
 

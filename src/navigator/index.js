@@ -253,6 +253,16 @@ const SendStack = () => {
         }}
       />
       <Stack.Screen
+        name="PinModal"
+        component={PinModalScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_bottom',
+          animationDuration: 5,
+        }}
+      />
+      <Stack.Screen
         name="TransactionDetail"
         component={TransactionDetailScreen}
         options={{
@@ -288,6 +298,16 @@ const RequestStack = () => {
           headerShadowVisible: false,
           animation: 'slide_from_right',
           animationDuration: 100,
+        }}
+      />
+      <Stack.Screen
+        name="PinModal"
+        component={PinModalScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_bottom',
+          animationDuration: 5,
         }}
       />
       <Stack.Screen

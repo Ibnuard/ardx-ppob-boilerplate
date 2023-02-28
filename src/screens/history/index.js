@@ -2,26 +2,30 @@ import {SectionList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors, Size, Typo} from '../../styles';
 import {Row, Touchable} from '../../components';
-import {groupingArraybyDate} from '../../utils/utils';
+import {formatRupiah, groupingArraybyDate} from '../../utils/utils';
 import {PARSE_MOMENT_ONLY} from '../../utils/moment';
 
 const HistoryScreen = ({navigation}) => {
   const EX_DATA = [
     {
-      name: 'test',
+      name: 'Pulsa Indosat',
       createdDate: '2023-02-27T17:00:57+07:00',
+      price: 10000,
     },
     {
-      name: 'test',
+      name: 'PLN Token',
       createdDate: '2023-02-26T17:00:57+07:00',
+      price: 20000,
     },
     {
-      name: 'test',
+      name: 'BPJS',
       createdDate: '2023-02-25T17:00:57+07:00',
+      price: 70000,
     },
     {
-      name: 'test',
+      name: 'Paket Data',
       createdDate: '2023-02-25T17:00:57+07:00',
+      price: 50000,
     },
   ];
 
@@ -38,7 +42,7 @@ const HistoryScreen = ({navigation}) => {
             onPress={() => navigation.navigate('TransactionDetail')}>
             <Row>
               <Text style={styles.textTitle}>{item?.name}</Text>
-              <Text style={styles.textPrice}>Price</Text>
+              <Text style={styles.textPrice}>{formatRupiah(item?.price)}</Text>
             </Row>
           </Touchable>
         )}
