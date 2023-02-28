@@ -1,4 +1,5 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {IMG} from './images';
 
 //create simple log
 export const cLog = (log = '', color) => {
@@ -149,4 +150,20 @@ export const CreateTopTabBar = () => {
   const Tab = createMaterialTopTabNavigator();
 
   return Tab;
+};
+
+// ==== GET OPERATOR NAME AND ICON BY PHONE
+export const getOperatorNameIcon = phone => {
+  const getNumber = normalizeNumber(phone);
+
+  const code = getNumber.substring(0, 2);
+
+  switch (code) {
+    case '85':
+      return {name: 'indosat', icon: IMG.operator.indosat};
+      break;
+    default:
+      return {name: '', icon: IMG.operator.blank};
+      break;
+  }
 };

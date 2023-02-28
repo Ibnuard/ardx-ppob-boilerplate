@@ -103,11 +103,11 @@ const Input = props => {
         secureTextEntry={isSecure}
       />
 
-      {props?.showClear && (
+      {props?.showClear ? (
         <Touchable style={styles.close} onPress={props?.onClearPress}>
           <Icon name="close" size={16} color={Colors.COLOR_DESCRIPTION} />
         </Touchable>
-      )}
+      ) : null}
 
       {props?.showContact && (
         <Touchable style={styles.contactButton} onPress={props?.onContactPress}>

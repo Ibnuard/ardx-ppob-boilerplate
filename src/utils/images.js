@@ -22,4 +22,8 @@ export const IMG = {
     bpjs: require('../../assets/images/ic_service_bpjs.png'),
     games: require('../../assets/images/ic_service_game.png'),
   },
+  operator: {
+    blank: require('../../assets/images/ic_op_blank.png'),
+    indosat: require('../../assets/images/ic_op_indosat.png'),
+  },
 };

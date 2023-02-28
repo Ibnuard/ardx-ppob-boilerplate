@@ -6,6 +6,7 @@ import Heading from '../heading';
 import Row from '../row';
 import Button from '../button';
 import Touchable from '../touchable';
+import {formatRupiah} from '../../utils/utils';
 
 const DetailBottomSheet = ({
   visible,
@@ -17,15 +18,15 @@ const DetailBottomSheet = ({
   const PARSE_DATA = [
     {
       title: 'Nomor',
-      value: 'Test',
+      value: data?.phone,
     },
     {
       title: 'Nominal',
-      value: 'Test',
+      value: formatRupiah(data?.nominal, false),
     },
     {
       title: 'Deskripsi',
-      value: 'Test',
+      value: data?.detail ?? '-',
     },
   ];
 
@@ -49,15 +50,15 @@ const DetailBottomSheet = ({
         <Text style={styles.textHeader}>Detail Pembayaran</Text>
         <Row mt={8}>
           <Text style={styles.textTitle}>Harga</Text>
-          <Text style={styles.textValue}>10000</Text>
+          <Text style={styles.textValue}>{formatRupiah(data?.price)}</Text>
         </Row>
         <Row mt={8}>
           <Text style={styles.textTitle}>Biaya Transaksi</Text>
-          <Text style={styles.textValue}>0</Text>
+          <Text style={styles.textValue}>Rp 0</Text>
         </Row>
         <Row mt={8}>
           <Text style={styles.textTitle}>Total</Text>
-          <Text style={styles.textValue}>0</Text>
+          <Text style={styles.textValue}>{formatRupiah(data?.price)}</Text>
         </Row>
         <View style={styles.bottomContainer}>
           <Row>

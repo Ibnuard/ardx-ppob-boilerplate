@@ -1,39 +1,42 @@
 import {
+  ActivityIndicator,
   FlatList,
   Image,
-  ScrollView,
   StyleSheet,
-  Text,
-  TextInput,
   View,
 } from 'react-native';
 import React from 'react';
-import {Colors, Scaler, Size, Typo} from '../../styles';
+import {Colors, Scaler, Size} from '../../styles';
 import {IMG} from '../../utils/images';
-import {
-  Card,
-  DetailBottomSheet,
-  Input,
-  PriceCard,
-  Row,
-  Touchable,
-} from '../../components';
-import Icon from 'react-native-vector-icons/AntDesign';
+import {DetailBottomSheet, Input, PriceCard} from '../../components';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useFocusEffect} from '@react-navigation/native';
-import {normalizeNumber} from '../../utils/utils';
+import {getOperatorNameIcon, normalizeNumber, wait} from '../../utils/utils';
 
 const PulsaDataScreen = ({navigation, route}) => {
   // === STATE
   const [phone, setPhone] = React.useState();
   const [selectedItem, setSelectedItem] = React.useState();
   const [showInfo, setShowInfo] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [pulsaList, setPulsaList] = React.useState();
+  const [dataList, setDataList] = React.useState();
 
   //VAR
   const SELECTED_CONTACT = route?.params?.phone ?? '';
+  const OPERATOR = getOperatorNameIcon(phone);
 
   // ==== INITIALIZE TAB-BAR
   const Tab = createMaterialTopTabNavigator();
+
+  // ==== CALLBACK HANDLER
+  const selectItem = React.useCallback(
+    item => {
+      setSelectedItem({...item, phone: phone});
+      setShowInfo(true);
+    },
+    [selectedItem],
+  );
 
   // == HANDLE SELECETD CONTACT
   useFocusEffect(
@@ -45,6 +48,32 @@ const PulsaDataScreen = ({navigation, route}) => {
       }
     }, [SELECTED_CONTACT]),
   );
+
+  // === HANDLE LOAD DATA
+  useFocusEffect(
+    React.useCallback(() => {
+      if (OPERATOR?.name?.length > 0 && !pulsaList && !dataList) {
+        setIsLoading(true);
+      }
+
+      if (!OPERATOR?.name?.length) {
+        setPulsaList();
+        setDataList();
+      }
+    }, [OPERATOR]),
+  );
+
+  //===DUMMY API TEST
+  React.useEffect(() => {
+    if (isLoading) {
+      wait(2000)
+        .then(() => {
+          setPulsaList(EX_PULSA);
+          setDataList(EX_DATA);
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [isLoading]);
 
   //DUMMY PULSA
   const EX_PULSA = [
@@ -94,46 +123,87 @@ const PulsaDataScreen = ({navigation, route}) => {
     },
   ];
 
+  const EX_DATA = [
+    {
+      nominal: 'Paket Data 1GB 1 hari',
+      price: 1000,
+    },
+    {
+      nominal: 'Paket Data 2GB 1 hari',
+      price: 2000,
+    },
+    {
+      nominal: 'Paket Data 3GB 1 hari',
+      price: 3000,
+    },
+    {
+      nominal: 'Paket Data 3GB 7 hari',
+      price: 5000,
+    },
+    {
+      nominal: 'Paket Data 5GB 7 hari',
+      price: 10000,
+    },
+  ];
+
   // === RENDER LIST
   function _renderListPulsa() {
+    if (isLoading) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
     return (
       <View style={styles.containerList}>
-        <FlatList
-          data={EX_PULSA}
-          contentContainerStyle={{
-            padding: Size.SIZE_8,
-          }}
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          renderItem={({item, index}) => (
-            <PriceCard
-              item={item}
-              onPress={() => {
-                setSelectedItem(item);
-                setShowInfo(true);
-              }}
-            />
-          )}
-        />
+        {OPERATOR?.name?.length > 0 ? (
+          <FlatList
+            data={pulsaList}
+            contentContainerStyle={{
+              padding: Size.SIZE_8,
+            }}
+            showsVerticalScrollIndicator={false}
+            numColumns={2}
+            renderItem={({item, index}) => (
+              <PriceCard item={item} onPress={() => selectItem(item)} />
+            )}
+          />
+        ) : null}
       </View>
     );
   }
 
   // === RENDER LIST
   function _renderListData() {
+    if (isLoading) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
     return (
       <View style={styles.containerList}>
-        <FlatList
-          data={EX_PULSA}
-          contentContainerStyle={{
-            padding: Size.SIZE_8,
-          }}
-          showsVerticalScrollIndicator={false}
-          numColumns={1}
-          renderItem={({item, index}) => (
-            <PriceCard item={item} useTitle onPress={() => setShowInfo(true)} />
-          )}
-        />
+        {OPERATOR?.name?.length > 0 ? (
+          <FlatList
+            data={dataList}
+            contentContainerStyle={{
+              padding: Size.SIZE_8,
+            }}
+            showsVerticalScrollIndicator={false}
+            numColumns={1}
+            renderItem={({item, index}) => (
+              <PriceCard
+                item={item}
+                useTitle
+                onPress={() => setShowInfo(true)}
+              />
+            )}
+          />
+        ) : null}
       </View>
     );
   }
@@ -148,9 +218,7 @@ const PulsaDataScreen = ({navigation, route}) => {
         />
         <View style={styles.logoContainer}>
           <Image
-            source={{
-              uri: 'https://img.tek.id/img/content/2020/04/30/28915/total-pendapatan-indosat-ooredoo-meningkat-dari-tahun-lalu-aXuIhcTpnH.jpg',
-            }}
+            source={OPERATOR.icon}
             style={styles.logo}
             resizeMode={'contain'}
           />
@@ -163,7 +231,12 @@ const PulsaDataScreen = ({navigation, route}) => {
           value={phone}
           onChangeText={text => setPhone(text)}
           showClear={phone}
-          onClearPress={() => setPhone()}
+          onClearPress={() => {
+            setPhone();
+            setIsLoading(false);
+            setPulsaList();
+            setDataList();
+          }}
           showContact
           onContactPress={() =>
             navigation.navigate('Contact', {target: 'PulsaDataInit'})
@@ -259,5 +332,9 @@ const styles = StyleSheet.create({
 
   input: {
     paddingHorizontal: Size.SIZE_24,
+  },
+
+  loadingContainer: {
+    padding: Size.SIZE_24,
   },
 });
