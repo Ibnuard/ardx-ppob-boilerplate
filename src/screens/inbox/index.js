@@ -113,8 +113,10 @@ const InboxScreen = ({navigation}) => {
     <View style={styles.container}>
       <Tab.Navigator
         screenOptions={{
+          tabBarActiveTintColor: Colors.COLOR_PRIMARY,
+          tabBarInactiveTintColor: Colors.COLOR_DESCRIPTION,
           tabBarLabelStyle: {
-            ...Typo.TextSmallRegular,
+            fontFamily: 'Poppins-Bold',
             textTransform: 'none',
           },
           tabBarPressColor: 'transparent',
