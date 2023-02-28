@@ -21,8 +21,8 @@ const DetailBottomSheet = ({
       value: data?.phone,
     },
     {
-      title: 'Nominal',
-      value: formatRupiah(data?.nominal, false),
+      title: 'Item',
+      value: data?.nominal,
     },
     {
       title: 'Deskripsi',

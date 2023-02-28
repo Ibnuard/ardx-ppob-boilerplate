@@ -8,7 +8,7 @@ import {
 import React from 'react';
 import {Colors, Scaler, Size} from '../../styles';
 import {IMG} from '../../utils/images';
-import {DetailBottomSheet, Input, PriceCard} from '../../components';
+import {DetailBottomSheet, Input, Modal, PriceCard} from '../../components';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useFocusEffect} from '@react-navigation/native';
 import {getOperatorNameIcon, normalizeNumber, wait} from '../../utils/utils';
@@ -25,6 +25,10 @@ const PulsaDataScreen = ({navigation, route}) => {
   //VAR
   const SELECTED_CONTACT = route?.params?.phone ?? '';
   const OPERATOR = getOperatorNameIcon(phone);
+  const NAV_DATA = route?.params?.data;
+  const IS_TRX_CONFIRMED = route?.params?.confirmed;
+
+  console.log(NAV_DATA);
 
   // ==== INITIALIZE TAB-BAR
   const Tab = createMaterialTopTabNavigator();
@@ -74,6 +78,25 @@ const PulsaDataScreen = ({navigation, route}) => {
         .finally(() => setIsLoading(false));
     }
   }, [isLoading]);
+
+  // === DUMMY CONFIRMED TRX
+  React.useEffect(() => {
+    if (IS_TRX_CONFIRMED) {
+      wait(2000).then(() => gotoDetail());
+    }
+  }, [IS_TRX_CONFIRMED]);
+
+  // ========= GOTO DETAIL
+  const gotoDetail = () => {
+    navigation.reset({
+      index: 1,
+      routes: [
+        {
+          name: 'TransactionDetail',
+        },
+      ],
+    });
+  };
 
   //DUMMY PULSA
   const EX_PULSA = [
@@ -199,7 +222,7 @@ const PulsaDataScreen = ({navigation, route}) => {
               <PriceCard
                 item={item}
                 useTitle
-                onPress={() => setShowInfo(true)}
+                onPress={() => selectItem(item)}
               />
             )}
           />
@@ -245,6 +268,7 @@ const PulsaDataScreen = ({navigation, route}) => {
       </View>
 
       <Tab.Navigator
+        initialRouteName={NAV_DATA?.type}
         screenOptions={{
           tabBarActiveTintColor: Colors.COLOR_PRIMARY,
           tabBarInactiveTintColor: Colors.COLOR_DESCRIPTION,
@@ -277,7 +301,18 @@ const PulsaDataScreen = ({navigation, route}) => {
         visible={showInfo}
         data={selectedItem}
         onCancelButtonPress={() => setShowInfo(false)}
+        onConfirmButtonPress={() => {
+          setShowInfo(false);
+          wait(1000).then(() => {
+            navigation.navigate('PinModal', {
+              id: 'TRANSACTION',
+              target: 'PulsaDataInit',
+              type: 'PIN',
+            });
+          });
+        }}
       />
+      <Modal type={'loading'} visible={IS_TRX_CONFIRMED} />
     </View>
   );
 };

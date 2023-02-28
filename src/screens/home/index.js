@@ -37,31 +37,49 @@ const HomeScreen = ({navigation}) => {
       title: 'Pulsa',
       icon: IMG.services.pulsa,
       id: 'PulsaData',
+      data: {
+        type: 'Pulsa',
+      },
     },
     {
       title: 'Data',
       icon: IMG.services.data,
       id: 'PulsaData',
+      data: {
+        type: 'PaketData',
+      },
     },
     {
       title: 'PLN',
       icon: IMG.services.pln,
       id: 'PulsaData',
+      data: {
+        type: 'Pulsa',
+      },
     },
     {
       title: 'BPJS',
       icon: IMG.services.bpjs,
       id: 'PulsaData',
+      data: {
+        type: 'Pulsa',
+      },
     },
     {
       title: 'PDAM',
       icon: IMG.services.pdam,
       id: 'PulsaData',
+      data: {
+        type: 'Pulsa',
+      },
     },
     {
       title: 'Games',
       icon: IMG.services.games,
       id: 'PulsaData',
+      data: {
+        type: 'Pulsa',
+      },
     },
   ];
 
@@ -173,7 +191,12 @@ const HomeScreen = ({navigation}) => {
                     width: '33%',
                   }}
                   key={index}
-                  onPress={() => navigation.navigate(item?.id)}>
+                  onPress={() =>
+                    navigation.navigate(item?.id, {
+                      screen: `${item?.id}Init`,
+                      params: {data: item?.data},
+                    })
+                  }>
                   <Image
                     source={item.icon}
                     style={styles.iconService}
