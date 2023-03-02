@@ -11,21 +11,41 @@ const HistoryScreen = ({navigation}) => {
       name: 'Pulsa Indosat',
       createdDate: '2023-02-27T17:00:57+07:00',
       price: 10000,
+      nominal: 10000,
+      trxId: 'TRX123',
+      sn: '1234 - 1234 - 1234 - 1234',
+      status: 'success',
+      number: '0857418945111',
     },
     {
       name: 'PLN Token',
       createdDate: '2023-02-26T17:00:57+07:00',
       price: 20000,
+      nominal: 20000,
+      trxId: 'TRX123',
+      sn: '1234 - 1234 - 1234 - 1234',
+      status: 'pending',
+      number: '7654321',
     },
     {
       name: 'BPJS',
       createdDate: '2023-02-25T17:00:57+07:00',
       price: 70000,
+      nominal: 70000,
+      trxId: 'TRX123',
+      sn: '1234 - 1234 - 1234 - 1234',
+      status: 'failed',
+      number: '00021212121',
     },
     {
       name: 'Paket Data',
       createdDate: '2023-02-25T17:00:57+07:00',
       price: 50000,
+      nominal: 50000,
+      trxId: 'TRX123',
+      sn: '1234 - 1234 - 1234 - 1234',
+      status: 'success',
+      number: '0857418945112',
     },
   ];
 
@@ -39,10 +59,14 @@ const HistoryScreen = ({navigation}) => {
         renderItem={({item}) => (
           <Touchable
             style={styles.card}
-            onPress={() => navigation.navigate('TransactionDetail')}>
+            onPress={() =>
+              navigation.navigate('TransactionDetail', {data: item})
+            }>
             <Row>
               <Text style={styles.textTitle}>{item?.name}</Text>
-              <Text style={styles.textPrice}>{formatRupiah(item?.price)}</Text>
+              <Text style={styles.textPrice}>
+                - {formatRupiah(item?.price)}
+              </Text>
             </Row>
           </Touchable>
         )}

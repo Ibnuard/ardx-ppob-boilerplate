@@ -21,6 +21,7 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import {formatRupiah, normalizeNumber, wait} from '../../utils/utils';
 import {useFocusEffect} from '@react-navigation/native';
+import {GET_CURRENT_DATETIME} from '../../utils/moment';
 
 const RequestScreen = ({navigation, route}) => {
   const [amount, setAmount] = React.useState(formatRupiah(0));
@@ -56,6 +57,18 @@ const RequestScreen = ({navigation, route}) => {
     }, [SELECTED_CONTACT, IS_TRX_CONFIRMED]),
   );
 
+  // === SAMPLE RESPONSE
+  const SAMPLE_RESPONSE = {
+    nominal: receiver,
+    price: amount,
+    number: receiver,
+    name: 'Request',
+    createdDate: GET_CURRENT_DATETIME(),
+    sn: '0980-5780-8979-4608',
+    status: 'success',
+    trxId: 'TRX5646',
+  };
+
   // ========= GOTO DETAIL
   const gotoDetail = () => {
     navigation.reset({
@@ -63,6 +76,9 @@ const RequestScreen = ({navigation, route}) => {
       routes: [
         {
           name: 'TransactionDetail',
+          params: {
+            data: SAMPLE_RESPONSE,
+          },
         },
       ],
     });

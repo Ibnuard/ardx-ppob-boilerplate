@@ -12,6 +12,7 @@ import {DetailBottomSheet, Input, Modal, PriceCard} from '../../components';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useFocusEffect} from '@react-navigation/native';
 import {getOperatorNameIcon, normalizeNumber, wait} from '../../utils/utils';
+import {GET_CURRENT_DATETIME} from '../../utils/moment';
 
 const PulsaDataScreen = ({navigation, route}) => {
   // === STATE
@@ -86,6 +87,15 @@ const PulsaDataScreen = ({navigation, route}) => {
     }
   }, [IS_TRX_CONFIRMED]);
 
+  // === SAMPLE RESPONSE
+  const SAMPLE_RESPONSE = {
+    ...selectedItem,
+    createdDate: GET_CURRENT_DATETIME(),
+    sn: '0980-5780-8979-4608',
+    status: 'success',
+    trxId: 'TRX5646',
+  };
+
   // ========= GOTO DETAIL
   const gotoDetail = () => {
     navigation.reset({
@@ -93,6 +103,9 @@ const PulsaDataScreen = ({navigation, route}) => {
       routes: [
         {
           name: 'TransactionDetail',
+          params: {
+            data: SAMPLE_RESPONSE,
+          },
         },
       ],
     });
@@ -103,46 +116,57 @@ const PulsaDataScreen = ({navigation, route}) => {
     {
       price: 1500,
       nominal: 1000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
     {
       price: 2500,
       nominal: 2000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
     {
       price: 3100,
       nominal: 3000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
     {
       price: 5500,
       nominal: 5000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
     {
       price: 10100,
       nominal: 10000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
     {
       price: 15100,
       nominal: 15000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
     {
       price: 20100,
       nominal: 20000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
     {
       price: 25100,
       nominal: 25000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
     {
       price: 30000,
       nominal: 30000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
     {
       price: 40000,
       nominal: 40000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
     {
       price: 50000,
       nominal: 50000,
+      name: `Pulsa ${OPERATOR.name}`,
     },
   ];
 
@@ -150,22 +174,27 @@ const PulsaDataScreen = ({navigation, route}) => {
     {
       nominal: 'Paket Data 1GB 1 hari',
       price: 1000,
+      name: OPERATOR?.name,
     },
     {
       nominal: 'Paket Data 2GB 1 hari',
       price: 2000,
+      name: OPERATOR?.name,
     },
     {
       nominal: 'Paket Data 3GB 1 hari',
       price: 3000,
+      name: OPERATOR?.name,
     },
     {
       nominal: 'Paket Data 3GB 7 hari',
       price: 5000,
+      name: OPERATOR?.name,
     },
     {
       nominal: 'Paket Data 5GB 7 hari',
       price: 10000,
+      name: OPERATOR?.name,
     },
   ];
 
@@ -252,6 +281,7 @@ const PulsaDataScreen = ({navigation, route}) => {
           theme={'material'}
           label={'Nomor Ponsel'}
           value={phone}
+          keyboardType={'phone-pad'}
           onChangeText={text => setPhone(text)}
           showClear={phone}
           onClearPress={() => {
