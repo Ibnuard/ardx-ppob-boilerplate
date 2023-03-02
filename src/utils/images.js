@@ -6,6 +6,8 @@ export const IMG = {
   logo: require('../../assets/images/logo.png'),
   boarding: {
     first: require('../../assets/images/ilu0.png'),
+    second: require('../../assets/images/ilu1.png'),
+    third: require('../../assets/images/ilu2.png'),
   },
   icon: {
     topup: require('../../assets/images/ic_topup.png'),

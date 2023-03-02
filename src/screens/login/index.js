@@ -35,6 +35,8 @@ const LoginScreen = ({navigation, route}) => {
       if (PIN_CALLBACK?.length) {
         onLogin();
       }
+
+      return () => null;
     }, [PIN_CALLBACK]),
   );
 
@@ -53,7 +55,6 @@ const LoginScreen = ({navigation, route}) => {
     } else {
       if (String(PIN_CALLBACK) == String(USER_DATA?.pin)) {
         wait(2000).then(() => {
-          setIsLoading(false);
           signIn();
         });
       } else {

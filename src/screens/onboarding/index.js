@@ -19,33 +19,46 @@ export default function OnBoardingScreen() {
     restoreToken();
   };
 
+  // === GENERATE
+  const DATA = [
+    {
+      img: IMG.boarding.first,
+      title: 'Quick and Easy',
+      desc: 'Just visit any of the growing number of outlets who accept money and make your purchase within second',
+    },
+    {
+      img: IMG.boarding.second,
+      title: 'Investerment Effectives',
+      desc: 'We constantly updated currency market, exchange rates',
+    },
+    {
+      img: IMG.boarding.third,
+      title: 'Security',
+      desc: 'Your money is protected by your login credentials',
+    },
+  ];
+
   return (
     <View style={styles.container}>
       <Slider>
-        <Center flex={1} w={'screen'}>
-          <Image source={IMG.boarding.first} />
-          <Heading mt={24} pv={4}>
-            Haloo
-          </Heading>
-          <Text style={styles.textDesc}>Desc</Text>
-        </Center>
-        <Center flex={1} w={'screen'}>
-          <Image source={IMG.boarding.first} />
-          <Heading mt={24} pv={4}>
-            Haloo
-          </Heading>
-          <Text style={styles.textDesc}>Desc</Text>
-        </Center>
-        <Center flex={1} w={'screen'}>
-          <Image source={IMG.boarding.first} />
-          <Heading mt={24} pv={4}>
-            Haloo
-          </Heading>
-          <Text style={styles.textDesc}>Desc</Text>
-        </Center>
+        {DATA.map((item, index) => {
+          return (
+            <Center key={index} flex={1} w={'screen'} px={32}>
+              <Image
+                source={item.img}
+                style={styles.pic}
+                resizeMode={'contain'}
+              />
+              <Heading mt={24} pv={4}>
+                {item.title}
+              </Heading>
+              <Text style={styles.textDesc}>{item.desc}</Text>
+            </Center>
+          );
+        })}
       </Slider>
       <View style={styles.bottomContainer}>
-        <Button title="Halo" onPress={() => onStartButtonPressed()} />
+        <Button title="Lewati" onPress={() => onStartButtonPressed()} />
       </View>
     </View>
   );
@@ -61,10 +74,16 @@ const styles = StyleSheet.create({
     padding: Scaler.scaleSize(24),
   },
 
+  pic: {
+    height: Scaler.scaleSize(250),
+    width: Scaler.scaleSize(250),
+  },
+
   //=== TEXT STYLES
 
   textDesc: {
     ...Typo.TextNormalRegular,
     color: Colors.COLOR_DESCRIPTION,
+    textAlign: 'center',
   },
 });
