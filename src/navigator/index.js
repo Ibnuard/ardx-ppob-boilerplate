@@ -24,6 +24,10 @@ import HistoryScreen from '../screens/history';
 import InboxScreen from '../screens/inbox';
 import PulsaDataScreen from '../screens/pulsadata';
 import ChangePINScreen from '../screens/changepin';
+import VerifyAccountScreen from '../screens/verifyaccount';
+import VerifyIDCardScreen from '../screens/verifyidcard';
+import VerifySelfieScreen from '../screens/verifyselfie';
+import VerifyDoneScreen from '../screens/verifydone';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -364,6 +368,68 @@ const ProfileStack = () => {
           headerShown: false,
           headerShadowVisible: false,
           animationDuration: 5,
+        }}
+      />
+      <Stack.Screen
+        name="VerifyAccount"
+        component={VerifyAccountStack}
+        options={{
+          title: '',
+          headerShown: false,
+          headerShadowVisible: false,
+          animationDuration: 5,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== VERIFY ACCOUNT STACK
+const VerifyAccountStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="VerifyAccountInit"
+        component={VerifyAccountScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="VerifyIDCard"
+        component={VerifyIDCardScreen}
+        options={{
+          title: 'Upload Foto KTP',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="VerifySelfie"
+        component={VerifySelfieScreen}
+        options={{
+          title: 'Upload Foto Selfie',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="VerifyDone"
+        component={VerifyDoneScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
         }}
       />
     </Stack.Navigator>
