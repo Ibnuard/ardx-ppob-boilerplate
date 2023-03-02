@@ -61,7 +61,8 @@ const PinModalScreen = props => {
     switch (NAV_ID) {
       case 'LOGIN':
         {
-          signIn();
+          setCode();
+          navigation.navigate(TARGET, {pin: code});
         }
         break;
       case 'FORGOT_PIN':

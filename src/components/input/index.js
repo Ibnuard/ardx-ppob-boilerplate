@@ -11,6 +11,7 @@ import React from 'react';
 import {Colors, Size, Typo} from '../../styles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Touchable from '../touchable';
+import {color} from 'react-native-reanimated';
 
 const Input = props => {
   const [isFocus, setIsFocus] = React.useState(false);
@@ -36,6 +37,8 @@ const Input = props => {
       case 'material':
         return isFocus
           ? styles.containerBorderBottomActive
+          : props?.error
+          ? styles.containerBorderBottomError
           : styles.containerBorderBottom;
         break;
       case 'border':
@@ -49,84 +52,93 @@ const Input = props => {
   };
 
   return (
-    <View style={[styles.container, themeSelector(), props?.containerStyle]}>
-      {props?.label && props?.theme == 'material' && (
-        <Animated.View
-          style={[
-            styles.labelContainer,
-            {
-              transform: [
-                {
-                  scale: focusAnim.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [1, 0.8],
-                  }),
-                },
-                {
-                  translateY: focusAnim.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, -36],
-                  }),
-                },
-                {
-                  translateX: focusAnim.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, -16],
-                  }),
-                },
-              ],
-            },
-          ]}>
-          <Text
+    <>
+      <View style={[styles.container, themeSelector(), props?.containerStyle]}>
+        {props?.label && props?.theme == 'material' && (
+          <Animated.View
             style={[
-              styles.textLabel,
+              styles.labelContainer,
               {
-                color: isFocus ? Colors.COLOR_PRIMARY : Colors.COLOR_DARK_GRAY,
+                transform: [
+                  {
+                    scale: focusAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [1, 0.8],
+                    }),
+                  },
+                  {
+                    translateY: focusAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -36],
+                    }),
+                  },
+                  {
+                    translateX: focusAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -16],
+                    }),
+                  },
+                ],
               },
             ]}>
-            {props?.label}
-          </Text>
-        </Animated.View>
-      )}
-      {props?.renderLeftContainer}
-      <TextInput
-        {...props}
-        style={styles.input}
-        onFocus={() => {
-          setIsFocus(!isFocus);
-          props?.onFocus ?? null;
-        }}
-        onBlur={() => {
-          setIsFocus(!isFocus);
-          props?.onBlur ?? null;
-        }}
-        secureTextEntry={isSecure}
-      />
+            <Text
+              style={[
+                styles.textLabel,
+                {
+                  color: isFocus
+                    ? Colors.COLOR_PRIMARY
+                    : Colors.COLOR_DARK_GRAY,
+                },
+              ]}>
+              {props?.label}
+            </Text>
+          </Animated.View>
+        )}
+        {props?.renderLeftContainer}
+        <TextInput
+          {...props}
+          style={styles.input}
+          onFocus={() => {
+            setIsFocus(!isFocus);
+            props?.onFocus ?? null;
+          }}
+          onBlur={() => {
+            setIsFocus(!isFocus);
+            props?.onBlur ?? null;
+          }}
+          secureTextEntry={isSecure}
+        />
 
-      {props?.showClear ? (
-        <Touchable style={styles.close} onPress={props?.onClearPress}>
-          <Icon name="close" size={16} color={Colors.COLOR_DESCRIPTION} />
-        </Touchable>
+        {props?.showClear ? (
+          <Touchable style={styles.close} onPress={props?.onClearPress}>
+            <Icon name="close" size={16} color={Colors.COLOR_DESCRIPTION} />
+          </Touchable>
+        ) : null}
+
+        {props?.showContact && (
+          <Touchable
+            style={styles.contactButton}
+            onPress={props?.onContactPress}>
+            <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
+          </Touchable>
+        )}
+
+        {props?.showEye && (
+          <Touchable
+            style={styles.showEye}
+            onPress={() => setIsSecure(!isSecure)}>
+            <Icon
+              name={isSecure ? 'eyeo' : 'eye'}
+              size={24}
+              color={Colors.COLOR_DARK_BACKGROUND}
+            />
+          </Touchable>
+        )}
+      </View>
+      {props?.error ? (
+        <Text style={styles.textError}>{props?.error}</Text>
       ) : null}
-
-      {props?.showContact && (
-        <Touchable style={styles.contactButton} onPress={props?.onContactPress}>
-          <Icon name="contacts" size={24} color={Colors.COLOR_DARK_GRAY} />
-        </Touchable>
-      )}
-
-      {props?.showEye && (
-        <Touchable
-          style={styles.showEye}
-          onPress={() => setIsSecure(!isSecure)}>
-          <Icon
-            name={isSecure ? 'eyeo' : 'eye'}
-            size={24}
-            color={Colors.COLOR_DARK_BACKGROUND}
-          />
-        </Touchable>
-      )}
-    </View>
+    </>
   );
 };
 
@@ -150,6 +162,11 @@ const styles = StyleSheet.create({
   containerBorderBottom: {
     borderBottomWidth: 1,
     borderBottomColor: Colors.COLOR_GRAY,
+  },
+
+  containerBorderBottomError: {
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.COLOR_RED,
   },
 
   containerBorderBottomActive: {
@@ -195,6 +212,13 @@ const styles = StyleSheet.create({
   textLabel: {
     ...Typo.TextNormalBold,
     color: Colors.COLOR_DARK_GRAY,
+  },
+
+  textError: {
+    ...Typo.TextSmallRegular,
+    color: Colors.COLOR_RED,
+    textAlign: 'left',
+    alignSelf: 'flex-start',
   },
 });
 

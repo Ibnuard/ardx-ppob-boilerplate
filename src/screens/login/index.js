@@ -1,3 +1,4 @@
+import {useFocusEffect} from '@react-navigation/native';
 import * as React from 'react';
 import {
   View,
@@ -7,12 +8,62 @@ import {
   Dimensions,
   KeyboardAvoidingView,
 } from 'react-native';
-import {Button, Center, Input, Row, Touchable} from '../../components';
+import {Button, Center, Input, Modal, Row, Touchable} from '../../components';
+import {AuthContext} from '../../context';
 import {Colors, Scaler, Size, Typo} from '../../styles';
 import {IMG} from '../../utils/images';
+import {USER_TEST} from '../../utils/test';
+import {normalizeNumber, wait} from '../../utils/utils';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({navigation, route}) => {
   const [phone, setPhone] = React.useState();
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [inputError, setInputError] = React.useState('');
+
+  // === context
+  const {signIn} = React.useContext(AuthContext);
+
+  // === GET PIN CALLBACK
+  const PIN_CALLBACK = route?.params?.pin;
+
+  // === TEST DATA
+  const USER_DATA = USER_TEST;
+
+  // === ON PIN CALLBACK
+  useFocusEffect(
+    React.useCallback(() => {
+      if (PIN_CALLBACK?.length) {
+        onLogin();
+      }
+    }, [PIN_CALLBACK]),
+  );
+
+  // === on login press
+  const onLogin = () => {
+    setIsLoading(true);
+
+    const phoneNumber = normalizeNumber(phone);
+    const testUserPhone = normalizeNumber(USER_DATA?.phone);
+
+    if (phoneNumber !== testUserPhone) {
+      wait(2000).then(() => {
+        setIsLoading(false);
+        setInputError('User tidak ditemukan');
+      });
+    } else {
+      if (String(PIN_CALLBACK) == String(USER_DATA?.pin)) {
+        wait(2000).then(() => {
+          setIsLoading(false);
+          signIn();
+        });
+      } else {
+        wait(2000).then(() => {
+          setIsLoading(false);
+          setInputError('User tidak ditemukan');
+        });
+      }
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -32,7 +83,11 @@ const LoginScreen = ({navigation}) => {
           placeholder={'Masukan Nomor Telpon'}
           theme={'material'}
           keyboardType={'phone-pad'}
-          onChangeText={text => setPhone(text)}
+          error={inputError}
+          onChangeText={text => {
+            setPhone(text);
+            setInputError('');
+          }}
           value={phone}
         />
         <View style={styles.loginButton}>
@@ -40,7 +95,11 @@ const LoginScreen = ({navigation}) => {
             disabled={!phone}
             title="Masuk"
             onPress={() =>
-              navigation.navigate('PinModal', {id: 'LOGIN', type: 'PIN'})
+              navigation.navigate('PinModal', {
+                id: 'LOGIN',
+                type: 'PIN',
+                target: 'SignIn',
+              })
             }
           />
         </View>
@@ -52,6 +111,7 @@ const LoginScreen = ({navigation}) => {
           </Touchable>
         </Row>
       </View>
+      <Modal visible={isLoading} type={'loading'} />
     </KeyboardAvoidingView>
   );
 };
