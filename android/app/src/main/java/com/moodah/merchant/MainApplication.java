@@ -1,4 +1,4 @@
-package com.moodah.apps;
+package com.moodah.merchant;
 
 import android.app.Application;
 import android.content.Context;
@@ -9,7 +9,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
-import com.moodah.apps.newarchitecture.MainApplicationReactNativeHost;
+import com.moodah.merchant.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 

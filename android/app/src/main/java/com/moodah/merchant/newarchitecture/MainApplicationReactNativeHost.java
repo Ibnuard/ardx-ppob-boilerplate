@@ -1,4 +1,4 @@
-package com.moodah.apps.newarchitecture;
+package com.moodah.merchant.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.moodah.apps.BuildConfig;
-import com.moodah.apps.newarchitecture.components.MainComponentsRegistry;
-import com.moodah.apps.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.moodah.merchant.BuildConfig;
+import com.moodah.merchant.newarchitecture.components.MainComponentsRegistry;
+import com.moodah.merchant.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

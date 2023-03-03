@@ -1,4 +1,4 @@
-package com.moodah.apps;
+package com.moodah.merchant;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

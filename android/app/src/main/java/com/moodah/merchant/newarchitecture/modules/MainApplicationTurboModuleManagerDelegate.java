@@ -1,4 +1,4 @@
-package com.moodah.apps.newarchitecture.modules;
+package com.moodah.merchant.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
