@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {View, Text, Image} from 'react-native';
+import {Row} from '../../components';
 import {AuthContext} from '../../context';
 import {IMG} from '../../utils/images';
 import {retrieveData} from '../../utils/store';
@@ -33,6 +34,16 @@ const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Image source={IMG.logo} style={styles.logo} resizeMode={'contain'} />
+      <View style={styles.bottomContainer}>
+        <Row>
+          <Text style={styles.textPoweredBy}>Powered by</Text>
+          <Image
+            source={IMG.logo}
+            style={styles.logoBy}
+            resizeMode={'contain'}
+          />
+        </Row>
+      </View>
     </View>
   );
 };

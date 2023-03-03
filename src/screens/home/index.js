@@ -25,9 +25,13 @@ const HomeScreen = ({navigation}) => {
   // ===== SET STATUS BAR
   useFocusEffect(
     React.useCallback(() => {
-      StatusBar.setBackgroundColor(Colors.COLOR_SECONDARY);
+      StatusBar.setBackgroundColor(Colors.COLOR_PRIMARY);
+      StatusBar.setBarStyle('light-content');
 
-      return () => StatusBar.setBackgroundColor(Colors.COLOR_WHITE);
+      return () => {
+        StatusBar.setBackgroundColor(Colors.COLOR_WHITE);
+        StatusBar.setBarStyle('dark-content');
+      };
     }, []),
   );
 
@@ -131,7 +135,7 @@ const HomeScreen = ({navigation}) => {
             <Icon
               name="md-notifications-outline"
               size={20}
-              color={Colors.COLOR_BLACK}
+              color={Colors.COLOR_PRIMARY}
             />
           </Touchable>
         </Row>
@@ -147,7 +151,14 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.cardContainer}>
           <Row>
             <View>
-              <Text style={styles.textBalanceCaption}>Total Saldo</Text>
+              <Row>
+                <Text style={styles.textBalanceCaption}>Saldo</Text>
+                <Image
+                  source={IMG.logo}
+                  style={styles.logoSmall}
+                  resizeMode={'contain'}
+                />
+              </Row>
               <Row>
                 <Text style={styles.textRp}>Rp</Text>
                 <Text style={styles.textRupiah}>10.000</Text>
@@ -246,7 +257,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container} forceInset={{top: 'always'}}>
-      <StatusBar backgroundColor={Colors.COLOR_SECONDARY} />
+      <StatusBar backgroundColor={Colors.COLOR_PRIMARY} />
       {_renderHeader()}
       {_renderCardBalance()}
       {_renderService()}
@@ -257,7 +268,7 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.COLOR_SECONDARY,
+    backgroundColor: Colors.COLOR_PRIMARY,
   },
 
   header: {
@@ -314,7 +325,7 @@ const styles = StyleSheet.create({
   },
 
   notifButton: {
-    backgroundColor: Colors.COLOR_DARK_BACKGROUND,
+    backgroundColor: Colors.COLOR_WHITE,
     width: Scaler.scaleSize(28),
     height: Scaler.scaleSize(28),
     alignItems: 'center',
@@ -343,10 +354,23 @@ const styles = StyleSheet.create({
     marginVertical: Size.SIZE_8,
   },
 
+  iconService: {
+    width: Scaler.scaleSize(42),
+    height: Scaler.scaleSize(42),
+  },
+
+  logoSmall: {
+    width: Scaler.scaleSize(40),
+    height: Scaler.scaleSize(20),
+    marginTop: -4,
+    marginLeft: 4,
+  },
+
   // ======= TEXT STYLE
 
   textName: {
     ...Typo.TextSmallMedium,
+    color: Colors.COLOR_WHITE,
   },
 
   textActivateAcc: {

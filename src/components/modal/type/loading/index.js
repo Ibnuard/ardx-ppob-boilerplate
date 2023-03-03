@@ -7,7 +7,7 @@ import styles from './styles';
 const ModalLoading = () => {
   return (
     <Card style={styles.container}>
-      <ActivityIndicator color={Colors.COLOR_ACCENT} />
+      <ActivityIndicator color={Colors.COLOR_PRIMARY} />
     </Card>
   );
 };

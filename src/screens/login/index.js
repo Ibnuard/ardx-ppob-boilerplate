@@ -112,6 +112,16 @@ const LoginScreen = ({navigation, route}) => {
           </Touchable>
         </Row>
       </View>
+      <View style={styles.bottomContainer}>
+        <Row>
+          <Text style={styles.textPoweredBy}>Powered by</Text>
+          <Image
+            source={IMG.logo}
+            style={styles.logoBy}
+            resizeMode={'contain'}
+          />
+        </Row>
+      </View>
       <Modal visible={isLoading} type={'loading'} />
     </KeyboardAvoidingView>
   );
@@ -129,6 +139,12 @@ const styles = StyleSheet.create({
   logo: {
     width: Scaler.scaleSize(128),
     height: Scaler.scaleSize(128),
+  },
+
+  logoBy: {
+    width: Scaler.scaleSize(64),
+    height: Scaler.scaleSize(64),
+    marginLeft: Size.SIZE_8,
   },
 
   loginButton: {
@@ -155,6 +171,13 @@ const styles = StyleSheet.create({
     padding: Size.SIZE_24,
   },
 
+  bottomContainer: {
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: 0,
+    marginBottom: Size.SIZE_14,
+  },
+
   // ==== TEXT STYLE
 
   textDesc: {
@@ -163,6 +186,11 @@ const styles = StyleSheet.create({
 
   textRegisterButton: {
     ...Typo.TextNormalBold,
+  },
+
+  textPoweredBy: {
+    ...Typo.TextSmallRegular,
+    color: Colors.COLOR_WHITE,
   },
 });
 
