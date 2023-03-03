@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-firebase/app": "^17.3.1",
+    "@react-native-firebase/messaging": "^17.3.1",
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/material-top-tabs": "^6.6.2",
     "@react-navigation/native": "^6.0.13",

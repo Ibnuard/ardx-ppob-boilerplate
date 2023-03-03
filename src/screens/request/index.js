@@ -107,7 +107,7 @@ const RequestScreen = ({navigation, route}) => {
           />
         </Row>
         <View style={styles.nominalContainer}>
-          <Text>Nominal Request</Text>
+          <Text style={styles.textNominal}>Nominal Request</Text>
           <TextInput
             style={styles.input}
             value={amount}
@@ -189,5 +189,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     paddingHorizontal: Size.SIZE_24,
+  },
+
+  // == TEXT
+
+  textNominal: {
+    ...Typo.TextNormalRegular,
   },
 });

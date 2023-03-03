@@ -126,7 +126,7 @@ const SendScreen = ({navigation, route}) => {
           />
         </Row>
         <View style={styles.nominalContainer}>
-          <Text>Nominal Tranfer</Text>
+          <Text style={styles.textNominal}>Nominal Tranfer</Text>
           <TextInput
             style={styles.input}
             value={amount}
@@ -210,5 +210,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     paddingHorizontal: Size.SIZE_24,
+  },
+
+  // == TEXT
+
+  textNominal: {
+    ...Typo.TextNormalRegular,
   },
 });

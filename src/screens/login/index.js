@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.COLOR_WHITE,
+    justifyContent: 'center',
   },
 
   logo: {
@@ -149,6 +150,7 @@ const styles = StyleSheet.create({
   },
 
   centerContainer: {
+    flex: 0.8,
     alignItems: 'center',
     padding: Size.SIZE_24,
   },

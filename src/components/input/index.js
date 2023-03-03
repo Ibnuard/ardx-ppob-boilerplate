@@ -98,6 +98,7 @@ const Input = props => {
         <TextInput
           {...props}
           style={styles.input}
+          placeholderTextColor={Colors.COLOR_DESCRIPTION}
           onFocus={() => {
             setIsFocus(!isFocus);
             props?.onFocus ?? null;

@@ -8,6 +8,7 @@ const TopUpScreen = ({navigation}) => {
     <View style={styles.container}>
       <Heading>Top Up</Heading>
       <SubHeading>Pilih bank untuk melakukan top up</SubHeading>
+      <View style={styles.spacer} />
       <Card
         mv={8}
         px={14}
@@ -41,6 +42,10 @@ const styles = StyleSheet.create({
     height: Size.SIZE_24 + 8,
     width: Size.SIZE_24 + 8,
     marginRight: Size.SIZE_14,
+  },
+
+  spacer: {
+    marginBottom: Size.SIZE_14,
   },
 
   //Text Style
