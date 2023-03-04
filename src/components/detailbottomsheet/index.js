@@ -18,11 +18,11 @@ const DetailBottomSheet = ({
   const PARSE_DATA = [
     {
       title: 'Nomor',
-      value: data?.phone,
+      value: data?.phone || data?.number,
     },
     {
       title: 'Item',
-      value: data?.nominal,
+      value: data?.name ?? data?.nominal,
     },
     {
       title: 'Deskripsi',

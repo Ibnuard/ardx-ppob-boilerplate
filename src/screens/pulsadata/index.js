@@ -24,10 +24,10 @@ const PulsaDataScreen = ({navigation, route}) => {
   const [dataList, setDataList] = React.useState();
 
   //VAR
-  const SELECTED_CONTACT = route?.params?.phone ?? '';
+  const SELECTED_CONTACT = route?.params?.phone ?? ''; // DATA FROM SELECTED CONTACT
   const OPERATOR = getOperatorNameIcon(phone);
-  const NAV_DATA = route?.params?.data;
-  const IS_TRX_CONFIRMED = route?.params?.confirmed;
+  const NAV_DATA = route?.params?.data; // DATA FROM HOME
+  const IS_TRX_CONFIRMED = route?.params?.confirmed; // DATA FROM PIN
 
   console.log(NAV_DATA);
 

@@ -1,5 +1,6 @@
+import {useFocusEffect} from '@react-navigation/native';
 import * as React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, StatusBar} from 'react-native';
 import {AuthContext} from '../../context';
 import {IMG} from '../../utils/images';
 import {retrieveData} from '../../utils/store';
@@ -8,6 +9,14 @@ import styles from './styles';
 
 const SplashScreen = ({navigation}) => {
   const {restoreToken} = React.useContext(AuthContext);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      StatusBar.setHidden(true);
+
+      return () => StatusBar.setHidden(false);
+    }),
+  );
 
   React.useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place

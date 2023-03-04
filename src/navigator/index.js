@@ -28,6 +28,8 @@ import VerifyAccountScreen from '../screens/verifyaccount';
 import VerifyIDCardScreen from '../screens/verifyidcard';
 import VerifySelfieScreen from '../screens/verifyselfie';
 import VerifyDoneScreen from '../screens/verifydone';
+import PlnScreen from '../screens/pln';
+import PlnTokenScreen from '../screens/plntoken';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -218,6 +220,13 @@ const HomeStack = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="PLN"
+        component={PLNStack}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -286,7 +295,7 @@ const SendStack = () => {
         name="TransactionDetail"
         component={TransactionDetailScreen}
         options={{
-          headerShown: false,
+          headerShown: true,
           title: '',
           headerShadowVisible: false,
           animation: 'slide_from_right',
@@ -334,7 +343,7 @@ const RequestStack = () => {
         name="TransactionDetail"
         component={TransactionDetailScreen}
         options={{
-          headerShown: false,
+          headerShown: true,
           title: '',
           headerShadowVisible: false,
           animation: 'slide_from_right',
@@ -573,6 +582,57 @@ const PulsaDataStack = () => {
           headerShadowVisible: false,
           animation: 'slide_from_right',
           animationDuration: 100,
+        }}
+      />
+      <Stack.Screen
+        name="PinModal"
+        component={PinModalScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_bottom',
+          animationDuration: 5,
+        }}
+      />
+      <Stack.Screen
+        name="TransactionDetail"
+        component={TransactionDetailScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          animationDuration: 100,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== PLN STACK
+const PLNStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="PLNInit"
+        component={PlnScreen}
+        options={{
+          title: 'PLN',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="PLNToken"
+        component={PlnTokenScreen}
+        options={{
+          title: 'PLN',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
         }}
       />
       <Stack.Screen

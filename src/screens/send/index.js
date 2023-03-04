@@ -61,7 +61,6 @@ const SendScreen = ({navigation, route}) => {
       if (IS_TRX_CONFIRMED) {
         setIsLoading(true);
         wait(2000).then(() => {
-          setIsLoading(false);
           gotoDetail();
         });
       }

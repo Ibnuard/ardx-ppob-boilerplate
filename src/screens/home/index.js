@@ -52,7 +52,7 @@ const HomeScreen = ({navigation}) => {
     {
       title: 'PLN',
       icon: IMG.services.pln,
-      id: 'PulsaData',
+      id: 'PLN',
       data: {
         type: 'Pulsa',
       },
@@ -201,7 +201,7 @@ const HomeScreen = ({navigation}) => {
                   }>
                   <Image
                     source={item.icon}
-                    style={styles.iconService}
+                    style={styles.serviceLogo}
                     resizeMode={'contain'}
                   />
                   <Text style={styles.textService}>{item.title}</Text>
@@ -341,6 +341,11 @@ const styles = StyleSheet.create({
     height: Size.SIZE_8,
     backgroundColor: Colors.COLOR_LIGHT_GRAY,
     marginVertical: Size.SIZE_8,
+  },
+
+  serviceLogo: {
+    width: Scaler.scaleSize(42),
+    height: Scaler.scaleSize(42),
   },
 
   // ======= TEXT STYLE
