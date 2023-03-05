@@ -8,6 +8,7 @@ import {
   PARSE_MOMENT_ONLY,
 } from '../../utils/moment';
 import {formatRupiah} from '../../utils/utils';
+import {PAYMENT_ITEM_NAME_BY_TYPE} from '../../utils/constant';
 
 export default function TransactionDetailScreen({navigation, route}) {
   //SAMPLE DATA
@@ -45,7 +46,7 @@ export default function TransactionDetailScreen({navigation, route}) {
   const DETAIL_ITEM_SINGLE = {
     price: formatRupiah(SAMPLE_DATA?.price),
     datetime: PARSE_MOMENT(SAMPLE_DATA?.createdDate, 'lll'),
-    nominal: `${SAMPLE_DATA?.name} ${SAMPLE_DATA?.nominal}`,
+    nominal: PAYMENT_ITEM_NAME_BY_TYPE(SAMPLE_DATA?.type, SAMPLE_DATA),
     total: formatRupiah(SAMPLE_DATA?.price),
   };
 

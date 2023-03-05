@@ -7,6 +7,7 @@ import Row from '../row';
 import Button from '../button';
 import Touchable from '../touchable';
 import {formatRupiah} from '../../utils/utils';
+import {DETAIL_ITEM_BY_TYPE} from '../../utils/constant';
 
 const DetailBottomSheet = ({
   visible,
@@ -15,26 +16,15 @@ const DetailBottomSheet = ({
   onCancelButtonPress,
   onConfirmButtonPress,
 }) => {
-  const PARSE_DATA = [
-    {
-      title: 'Nomor',
-      value: data?.phone || data?.number,
-    },
-    {
-      title: 'Item',
-      value: data?.name ?? data?.nominal,
-    },
-    {
-      title: 'Deskripsi',
-      value: data?.detail ?? '-',
-    },
-  ];
+  const PARSE_DATA = DETAIL_ITEM_BY_TYPE(data?.type, data);
+
+  const TOTAL_PRICE = data?.price + (data?.adminFee ?? 0);
 
   return (
     <BottomSheet
       visible={visible}
       flex={1}
-      maxH={'62%'}
+      maxH={'56%'}
       onBackButtonPress={onBackPress}>
       <View style={styles.container}>
         <Text style={styles.textHeader}>Informasi Pelanggan</Text>
@@ -42,7 +32,9 @@ const DetailBottomSheet = ({
           return (
             <Row mt={8} key={index}>
               <Text style={styles.textTitle}>{item?.title}</Text>
-              <Text style={styles.textValue}>{item?.value}</Text>
+              <Text numberOfLines={1} style={styles.textValue}>
+                {item?.value}
+              </Text>
             </Row>
           );
         })}
@@ -50,15 +42,17 @@ const DetailBottomSheet = ({
         <Text style={styles.textHeader}>Detail Pembayaran</Text>
         <Row mt={8}>
           <Text style={styles.textTitle}>Harga</Text>
-          <Text style={styles.textValue}>{formatRupiah(data?.price)}</Text>
+          <Text style={styles.textValue}>{formatRupiah(data?.price ?? 0)}</Text>
         </Row>
         <Row mt={8}>
           <Text style={styles.textTitle}>Biaya Transaksi</Text>
-          <Text style={styles.textValue}>Rp 0</Text>
+          <Text style={styles.textValue}>
+            {formatRupiah(data?.adminFee ?? 0)}
+          </Text>
         </Row>
         <Row mt={8}>
           <Text style={styles.textTitle}>Total</Text>
-          <Text style={styles.textValue}>{formatRupiah(data?.price)}</Text>
+          <Text style={styles.textValue}>{formatRupiah(TOTAL_PRICE ?? 0)}</Text>
         </Row>
         <View style={styles.bottomContainer}>
           <Row>

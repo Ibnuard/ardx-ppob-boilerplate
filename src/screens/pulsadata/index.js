@@ -13,6 +13,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {useFocusEffect} from '@react-navigation/native';
 import {getOperatorNameIcon, normalizeNumber, wait} from '../../utils/utils';
 import {GET_CURRENT_DATETIME} from '../../utils/moment';
+import {MINIMUM_NUMBER, PRODUCT_TYPE} from '../../utils/constant';
 
 const PulsaDataScreen = ({navigation, route}) => {
   // === STATE
@@ -22,6 +23,7 @@ const PulsaDataScreen = ({navigation, route}) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [pulsaList, setPulsaList] = React.useState();
   const [dataList, setDataList] = React.useState();
+  const [inputError, setInputError] = React.useState('');
 
   //VAR
   const SELECTED_CONTACT = route?.params?.phone ?? ''; // DATA FROM SELECTED CONTACT
@@ -34,10 +36,19 @@ const PulsaDataScreen = ({navigation, route}) => {
   // ==== INITIALIZE TAB-BAR
   const Tab = createMaterialTopTabNavigator();
 
+  // === CHECK CLIENT NUMBER
+  const checkClientNumber = item => {
+    if (phone.length < MINIMUM_NUMBER.PULSA_DATA) {
+      setInputError('Nomor ponsel minimal 9 karakter');
+    } else {
+      selectItem(item);
+    }
+  };
+
   // ==== CALLBACK HANDLER
   const selectItem = React.useCallback(
     item => {
-      setSelectedItem({...item, phone: phone});
+      setSelectedItem({...item, number: phone, type: PRODUCT_TYPE.PULSADATA});
       setShowInfo(true);
     },
     [selectedItem, phone],
@@ -90,6 +101,7 @@ const PulsaDataScreen = ({navigation, route}) => {
   // === SAMPLE RESPONSE
   const SAMPLE_RESPONSE = {
     ...selectedItem,
+    type: PRODUCT_TYPE.PULSADATA,
     createdDate: GET_CURRENT_DATETIME(),
     sn: '0980-5780-8979-4608',
     status: 'success',
@@ -219,7 +231,7 @@ const PulsaDataScreen = ({navigation, route}) => {
             showsVerticalScrollIndicator={false}
             numColumns={2}
             renderItem={({item, index}) => (
-              <PriceCard item={item} onPress={() => selectItem(item)} />
+              <PriceCard item={item} onPress={() => checkClientNumber(item)} />
             )}
           />
         ) : null}
@@ -282,13 +294,18 @@ const PulsaDataScreen = ({navigation, route}) => {
           label={'Nomor Ponsel'}
           value={phone}
           keyboardType={'phone-pad'}
-          onChangeText={text => setPhone(text)}
+          onChangeText={text => {
+            setPhone(text);
+            setInputError('');
+          }}
           showClear={phone}
+          error={inputError}
           onClearPress={() => {
             setPhone();
             setIsLoading(false);
             setPulsaList();
             setDataList();
+            setInputError('');
           }}
           showContact
           onContactPress={() =>
@@ -397,6 +414,7 @@ const styles = StyleSheet.create({
 
   input: {
     paddingHorizontal: Size.SIZE_24,
+    paddingVertical: Size.SIZE_14,
   },
 
   loadingContainer: {

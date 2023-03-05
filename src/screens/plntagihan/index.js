@@ -1,100 +1,74 @@
-import {FlatList, Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {IMG} from '../../utils/images';
-import {DetailBottomSheet, Input, Modal, PriceCard} from '../../components';
 import {Colors, Scaler, Size} from '../../styles';
+import {IMG} from '../../utils/images';
+import {Button, DetailBottomSheet, Input, Modal} from '../../components';
 import {wait} from '../../utils/utils';
 import {MINIMUM_NUMBER, PRODUCT_TYPE} from '../../utils/constant';
 import {GET_CURRENT_DATETIME} from '../../utils/moment';
 
-const PlnTokenScreen = ({navigation, route}) => {
-  // === State
+const PlnTagihanScreen = ({navigation, route}) => {
+  // ==STATE
   const [meterNumber, setMeterNumber] = React.useState();
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [selectedItem, setSelectedItem] = React.useState();
-  const [showInfo, setShowInfo] = React.useState(false);
   const [inputError, setInputError] = React.useState('');
+  const [showInfo, setShowInfo] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [modalLoading, setModalLoading] = React.useState(false);
+  const [paymentDetails, setPaymentDetails] = React.useState();
 
   // == PARAMS
   const IS_TRX_CONFIRMED = route?.params?.confirmed;
 
-  // === DUMMY
-  const EX_PLN = [
-    {
-      price: 22000,
-      nominal: 20000,
-      name: 'PLN Token 20K',
-    },
-    {
-      price: 52000,
-      nominal: 50000,
-      name: 'PLN Token 50K',
-    },
-    {
-      price: 102000,
-      nominal: 100000,
-      name: 'PLN Token 100K',
-    },
-    {
-      price: 202000,
-      nominal: 200000,
-      name: 'PLN Token 200K',
-    },
-    {
-      price: 502000,
-      nominal: 500000,
-      name: 'PLN Token 500k',
-    },
-    {
-      price: 1000000,
-      nominal: 1000000,
-      name: 'PLN Token 1000K',
-    },
-  ];
+  // === ON CONTINUE
+  const onContinuePressed = () => {
+    setIsLoading(true);
 
-  // == CHECK CLIENT NUMBER
-  const checkClientNumber = item => {
-    if (String(meterNumber)?.length < MINIMUM_NUMBER.PLN_TOKEN) {
-      setInputError('Nomor meter minimal 10 karakter');
+    // == dummy test
+    if (meterNumber == '123412341234') {
+      setIsLoading(false);
+      setInputError('Tagihan sudah dibayar');
+    } else if (meterNumber == '123456789001') {
+      const testPayment = {
+        type: PRODUCT_TYPE.PLN_TAGIHAN,
+        number: meterNumber,
+        price: 125000,
+        clientName: 'Wang Ja',
+        periode: 'Maret 2023',
+        adminFee: 2500,
+      };
+
+      setIsLoading(false);
+      paymentItem(testPayment);
     } else {
-      if (meterNumber !== '1234567890') {
-        setInputError('Nomor meter tidak ditemukan');
-      } else {
-        selectItem(item);
-      }
+      setIsLoading(false);
+      setInputError('Nomor meter tidak ditemukan');
     }
   };
 
   // ==== CALLBACK HANDLER
-  const selectItem = React.useCallback(
+  const paymentItem = React.useCallback(
     item => {
-      setSelectedItem({
-        ...item,
-        number: meterNumber,
-        type: PRODUCT_TYPE.PLN_TOKEN,
-        clientName: 'Wang Ja', // client name test
-      });
+      setPaymentDetails(item);
       setShowInfo(true);
     },
-    [selectedItem, meterNumber],
+    [paymentDetails, meterNumber],
   );
 
   // === DUMMY CONFIRMED TRX
   React.useEffect(() => {
     if (IS_TRX_CONFIRMED) {
-      setIsLoading(true);
+      setModalLoading(true);
       wait(2000).then(() => gotoDetail());
     }
   }, [IS_TRX_CONFIRMED]);
 
   // === SAMPLE RESPONSE
   const SAMPLE_RESPONSE = {
-    ...selectedItem,
+    ...paymentDetails,
     createdDate: GET_CURRENT_DATETIME(),
     sn: '0980-5780-8979-4608',
     status: 'success',
     trxId: 'TRX5646',
-    type: PRODUCT_TYPE.PLN_TOKEN,
   };
 
   // ========= GOTO DETAIL
@@ -111,25 +85,6 @@ const PlnTokenScreen = ({navigation, route}) => {
       ],
     });
   };
-
-  // === RENDER LIST
-  function _renderListPulsa() {
-    return (
-      <View style={styles.containerList}>
-        <FlatList
-          data={EX_PLN}
-          contentContainerStyle={{
-            padding: Size.SIZE_8,
-          }}
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          renderItem={({item, index}) => (
-            <PriceCard item={item} onPress={() => checkClientNumber(item)} />
-          )}
-        />
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
@@ -166,28 +121,37 @@ const PlnTokenScreen = ({navigation, route}) => {
           }}
         />
       </View>
-      {_renderListPulsa()}
+      <View style={styles.bottomContainer}>
+        <Button
+          disabled={
+            !meterNumber || meterNumber?.length < MINIMUM_NUMBER.PLN_TAGIHAN
+          }
+          title="Lanjut"
+          isLoading={isLoading}
+          onPress={() => onContinuePressed()}
+        />
+      </View>
       <DetailBottomSheet
         visible={showInfo}
-        data={selectedItem}
+        data={paymentDetails}
         onCancelButtonPress={() => setShowInfo(false)}
         onConfirmButtonPress={() => {
           setShowInfo(false);
           wait(1000).then(() => {
             navigation.navigate('PinModal', {
               id: 'TRANSACTION',
-              target: 'PLNToken',
+              target: 'PLNTagihan',
               type: 'PIN',
             });
           });
         }}
       />
-      <Modal type={'loading'} visible={isLoading} />
+      <Modal type={'loading'} visible={modalLoading} />
     </View>
   );
 };
 
-export default PlnTokenScreen;
+export default PlnTagihanScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -221,12 +185,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.COLOR_WHITE,
   },
 
-  loadingContainer: {
-    padding: Size.SIZE_24,
-  },
-
-  containerList: {
+  bottomContainer: {
     flex: 1,
-    backgroundColor: Colors.COLOR_LIGHT_GRAY,
+    justifyContent: 'flex-end',
+    padding: Size.SIZE_24,
   },
 });

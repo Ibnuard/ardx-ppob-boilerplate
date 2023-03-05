@@ -30,6 +30,7 @@ import VerifySelfieScreen from '../screens/verifyselfie';
 import VerifyDoneScreen from '../screens/verifydone';
 import PlnScreen from '../screens/pln';
 import PlnTokenScreen from '../screens/plntoken';
+import PlnTagihanScreen from '../screens/plntagihan';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -626,6 +627,18 @@ const PLNStack = () => {
       <Stack.Screen
         name="PLNToken"
         component={PlnTokenScreen}
+        options={{
+          title: 'PLN',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="PLNTagihan"
+        component={PlnTagihanScreen}
         options={{
           title: 'PLN',
           headerShadowVisible: false,

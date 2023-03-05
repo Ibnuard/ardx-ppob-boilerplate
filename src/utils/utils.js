@@ -160,10 +160,10 @@ export const getOperatorNameIcon = phone => {
 
   switch (code) {
     case '85':
-      return {name: 'indosat', icon: IMG.operator.indosat};
+      return {id: 'indosat', name: 'Indosat', icon: IMG.operator.indosat};
       break;
     default:
-      return {name: '', icon: IMG.operator.blank};
+      return {id: '', name: '', icon: IMG.operator.blank};
       break;
   }
 };
