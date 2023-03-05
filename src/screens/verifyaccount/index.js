@@ -12,10 +12,12 @@ const VerifyAccountScreen = ({navigation}) => {
       <Center flex={1}>
         <Image source={IMG.boarding.first} />
       </Center>
-      <Button
-        title="Konfirmasi"
-        onPress={() => navigation.navigate('VerifyIDCard')}
-      />
+      <View style={styles.bottomContainer}>
+        <Button
+          title="Konfirmasi"
+          onPress={() => navigation.navigate('VerifyIDCard')}
+        />
+      </View>
     </View>
   );
 };
@@ -27,5 +29,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.COLOR_WHITE,
     padding: Size.SIZE_24,
+  },
+
+  bottomContainer: {
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
+    alignSelf: 'center',
+    paddingVertical: Size.SIZE_24,
   },
 });

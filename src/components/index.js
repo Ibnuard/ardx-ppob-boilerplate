@@ -15,6 +15,7 @@ import RenderState from './renderstate';
 import StatusBarWhite from './statusbarwhite';
 import PriceCard from './pricecard';
 import DetailBottomSheet from './detailbottomsheet';
+import MonthCard from './monthcard';
 
 export {
   Button,
@@ -34,4 +35,5 @@ export {
   StatusBarWhite,
   PriceCard,
   DetailBottomSheet,
+  MonthCard,
 };

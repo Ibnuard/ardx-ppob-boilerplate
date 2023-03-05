@@ -29,4 +29,5 @@ export const IMG = {
     indosat: require('../../assets/images/ic_op_indosat.png'),
   },
   plnLogo: require('../../assets/images/plnLogo.png'),
+  bpjsLogo: require('../../assets/images/bpjsLogo.png'),
 };

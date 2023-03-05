@@ -79,3 +79,67 @@ export const PAYMENT_ITEM_NAME_BY_TYPE = (type, data) => {
     return 'Transaksi';
   }
 };
+
+// == month list
+export const MONTH_LIST = [
+  {
+    id: 0,
+    prefix: 'JAN',
+    name: 'JANUARI',
+  },
+  {
+    id: 1,
+    prefix: 'FEB',
+    name: 'FEBRUARI',
+  },
+  {
+    id: 2,
+    prefix: 'MAR',
+    name: 'MARET',
+  },
+  {
+    id: 3,
+    prefix: 'APR',
+    name: 'APRIL',
+  },
+  {
+    id: 4,
+    prefix: 'MEI',
+    name: 'MEI',
+  },
+  {
+    id: 5,
+    prefix: 'JUN',
+    name: 'JUNI',
+  },
+  {
+    id: 6,
+    prefix: 'JUL',
+    name: 'JULI',
+  },
+  {
+    id: 7,
+    prefix: 'AGU',
+    name: 'AGUSTUS',
+  },
+  {
+    id: 8,
+    prefix: 'SEP',
+    name: 'SEPTEMBER',
+  },
+  {
+    id: 9,
+    prefix: 'OKT',
+    name: 'OKTOBER',
+  },
+  {
+    id: 10,
+    prefix: 'NOV',
+    name: 'NOVEMBER',
+  },
+  {
+    id: 11,
+    prefix: 'DES',
+    name: 'DESEMBER',
+  },
+];

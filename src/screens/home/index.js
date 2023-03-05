@@ -42,7 +42,7 @@ const HomeScreen = ({navigation}) => {
       },
     },
     {
-      title: 'Data',
+      title: 'Paket Data',
       icon: IMG.services.data,
       id: 'PulsaData',
       data: {
@@ -54,19 +54,19 @@ const HomeScreen = ({navigation}) => {
       icon: IMG.services.pln,
       id: 'PLN',
       data: {
-        type: 'Pulsa',
+        type: 'PLN',
       },
     },
     {
-      title: 'BPJS',
+      title: 'BPJS Kesehatan',
       icon: IMG.services.bpjs,
-      id: 'PulsaData',
+      id: 'BPJS',
       data: {
-        type: 'Pulsa',
+        type: 'BPJS',
       },
     },
     {
-      title: 'PDAM',
+      title: 'Air PDAM',
       icon: IMG.services.pdam,
       id: 'PulsaData',
       data: {
@@ -384,6 +384,7 @@ const styles = StyleSheet.create({
   textService: {
     ...Typo.TextSmallRegular,
     marginTop: Size.SIZE_12,
+    textAlign: 'center',
   },
 });
 

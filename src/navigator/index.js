@@ -31,6 +31,7 @@ import VerifyDoneScreen from '../screens/verifydone';
 import PlnScreen from '../screens/pln';
 import PlnTokenScreen from '../screens/plntoken';
 import PlnTagihanScreen from '../screens/plntagihan';
+import BPJSScreen from '../screens/bpjs';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -224,6 +225,13 @@ const HomeStack = () => {
       <Stack.Screen
         name="PLN"
         component={PLNStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="BPJS"
+        component={BPJSStack}
         options={{
           headerShown: false,
         }}
@@ -666,6 +674,25 @@ const PLNStack = () => {
           headerShadowVisible: false,
           animation: 'slide_from_right',
           animationDuration: 100,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== BPJS STACK
+const BPJSStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="BPJSInit"
+        component={BPJSScreen}
+        options={{
+          title: 'BPJS Kesehatan',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
         }}
       />
     </Stack.Navigator>
