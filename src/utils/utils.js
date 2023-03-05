@@ -1,4 +1,6 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import moment from 'moment';
+import {MONTH_LIST} from './constant';
 import {IMG} from './images';
 
 //create simple log
@@ -166,4 +168,24 @@ export const getOperatorNameIcon = phone => {
       return {id: '', name: '', icon: IMG.operator.blank};
       break;
   }
+};
+
+// == GET MONTH YEAR LIST BY CURRENT MONTH
+export const GET_CURRENT_MONTH_BY_CURRENT = () => {
+  const currentMonth = Number(moment().format('MM'));
+  const currentYear = moment().format('YYYY');
+
+  let temp = [];
+
+  for (let i = currentMonth - 1; i < MONTH_LIST.length; i++) {
+    temp.push({...MONTH_LIST[i], year: currentYear});
+  }
+
+  const diff = MONTH_LIST.length - temp.length;
+
+  for (let i = 0; i < diff; i++) {
+    temp.push({...MONTH_LIST[i], year: currentYear});
+  }
+
+  return temp;
 };

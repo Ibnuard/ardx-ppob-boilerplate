@@ -136,6 +136,7 @@ const PlnTagihanScreen = ({navigation, route}) => {
         data={paymentDetails}
         onCancelButtonPress={() => setShowInfo(false)}
         onConfirmButtonPress={() => {
+          setIsLoading(true);
           setShowInfo(false);
           wait(1000).then(() => {
             navigation.navigate('PinModal', {

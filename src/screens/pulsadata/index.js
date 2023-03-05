@@ -24,6 +24,7 @@ const PulsaDataScreen = ({navigation, route}) => {
   const [pulsaList, setPulsaList] = React.useState();
   const [dataList, setDataList] = React.useState();
   const [inputError, setInputError] = React.useState('');
+  const [modalLoading, setModalLoading] = React.useState(false);
 
   //VAR
   const SELECTED_CONTACT = route?.params?.phone ?? ''; // DATA FROM SELECTED CONTACT
@@ -94,6 +95,7 @@ const PulsaDataScreen = ({navigation, route}) => {
   // === DUMMY CONFIRMED TRX
   React.useEffect(() => {
     if (IS_TRX_CONFIRMED) {
+      setModalLoading(true);
       wait(2000).then(() => gotoDetail());
     }
   }, [IS_TRX_CONFIRMED]);
@@ -349,6 +351,7 @@ const PulsaDataScreen = ({navigation, route}) => {
         data={selectedItem}
         onCancelButtonPress={() => setShowInfo(false)}
         onConfirmButtonPress={() => {
+          setIsLoading(true);
           setShowInfo(false);
           wait(1000).then(() => {
             navigation.navigate('PinModal', {
@@ -359,7 +362,7 @@ const PulsaDataScreen = ({navigation, route}) => {
           });
         }}
       />
-      <Modal type={'loading'} visible={IS_TRX_CONFIRMED} />
+      <Modal type={'loading'} visible={modalLoading} />
     </View>
   );
 };

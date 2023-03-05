@@ -101,11 +101,11 @@ const Input = props => {
           placeholderTextColor={Colors.COLOR_DESCRIPTION}
           onFocus={() => {
             setIsFocus(!isFocus);
-            props?.onFocus ?? null;
+            props?.onFocus ? props?.onFocus() : null;
           }}
           onBlur={() => {
             setIsFocus(!isFocus);
-            props?.onBlur ?? null;
+            props?.onBlur ? props?.onBlur() : null;
           }}
           secureTextEntry={isSecure}
         />

@@ -172,6 +172,7 @@ const PlnTokenScreen = ({navigation, route}) => {
         data={selectedItem}
         onCancelButtonPress={() => setShowInfo(false)}
         onConfirmButtonPress={() => {
+          setIsLoading(true);
           setShowInfo(false);
           wait(1000).then(() => {
             navigation.navigate('PinModal', {
