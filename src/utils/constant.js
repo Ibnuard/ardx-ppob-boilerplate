@@ -5,6 +5,7 @@ export const MINIMUM_NUMBER = {
   PLN_TOKEN: 10,
   PLN_TAGIHAN: 11,
   BPJS: 10,
+  PDAM: 10,
 };
 
 // === PPOB PRODUCT TYPE
@@ -13,6 +14,7 @@ export const PRODUCT_TYPE = {
   PLN_TOKEN: 'PLNTOKEN',
   PLN_TAGIHAN: 'PLNTAGIHAN',
   BPJS: 'BPJS',
+  PDAM: 'PDAM',
 };
 
 // === DEFINE PAYMENT DETAIL EACH PAYMENT TYPE
@@ -73,6 +75,21 @@ export const DETAIL_ITEM_BY_TYPE = (type, data) => {
         value: data?.periode,
       },
     ];
+  } else if (type == 'PDAM') {
+    return [
+      {
+        title: 'Nomor Pelanggan',
+        value: data?.number,
+      },
+      {
+        title: 'Nama Pelanggan',
+        value: data?.clientName,
+      },
+      {
+        title: 'Periode',
+        value: data?.periode,
+      },
+    ];
   } else {
     return [];
   }
@@ -94,6 +111,8 @@ export const PAYMENT_ITEM_NAME_BY_TYPE = (type, data) => {
     return `${data?.clientName} - PLN Tagihan`;
   } else if (type == 'BPJS') {
     return `BPJS Kesehatan`;
+  } else if (type == 'PDAM') {
+    return `PDAM`;
   } else {
     return 'Transaksi';
   }

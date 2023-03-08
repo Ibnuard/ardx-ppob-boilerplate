@@ -68,9 +68,9 @@ const HomeScreen = ({navigation}) => {
     {
       title: 'Air PDAM',
       icon: IMG.services.pdam,
-      id: 'PulsaData',
+      id: 'PDAM',
       data: {
-        type: 'Pulsa',
+        type: 'PDAM',
       },
     },
     {

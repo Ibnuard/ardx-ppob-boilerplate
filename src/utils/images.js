@@ -30,4 +30,5 @@ export const IMG = {
   },
   plnLogo: require('../../assets/images/plnLogo.png'),
   bpjsLogo: require('../../assets/images/bpjsLogo.png'),
+  pdamLogo: require('../../assets/images/pdamLogo.png'),
 };

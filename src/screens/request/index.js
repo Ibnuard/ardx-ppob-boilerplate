@@ -21,7 +21,7 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import {formatRupiah, normalizeNumber, wait} from '../../utils/utils';
 import {useFocusEffect} from '@react-navigation/native';
-import {GET_CURRENT_DATETIME} from '../../utils/moment';
+import {GET_CURRENT_DATETIME, PARSE_MOMENT} from '../../utils/moment';
 
 const RequestScreen = ({navigation, route}) => {
   const [amount, setAmount] = React.useState(formatRupiah(0));
@@ -34,6 +34,8 @@ const RequestScreen = ({navigation, route}) => {
   // ========= GET SELECTED CONTACT
   const SELECTED_CONTACT = route?.params?.phone ?? '';
   const IS_TRX_CONFIRMED = route?.params?.confirmed;
+  const IS_FROM_INBOX = route?.params?.id;
+  const REQUEST_DATA = route?.params?.data;
 
   useFocusEffect(
     // == HANDLE SELECETD CONTACT
@@ -83,23 +85,46 @@ const RequestScreen = ({navigation, route}) => {
     });
   };
 
+  // == HANDLE TITLE BY STATUS
+  const getTitleByStatus = () => {
+    switch (REQUEST_DATA?.status) {
+      case 'success':
+        return 'Selesai';
+        break;
+      case 'rejected':
+        return 'Ditolak';
+        break;
+      default:
+        return 'Menunggu Persetujuan';
+        break;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Heading>Request</Heading>
-        <SubHeading>Masukan atau pilih nomor ponsel</SubHeading>
+        <Heading>{IS_FROM_INBOX ? 'My Request' : 'Request'}</Heading>
+        <SubHeading>
+          {IS_FROM_INBOX
+            ? `Detail permintaan ${PARSE_MOMENT(
+                REQUEST_DATA?.createdDate,
+                'lll',
+              )}`
+            : 'Masukan atau pilih nomor ponsel'}
+        </SubHeading>
       </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.contactContainer}>
         <Row>
           <Input
+            editable={!IS_FROM_INBOX}
             theme={'material'}
-            placeholder={'Masukan Nomor Ponsel'}
-            value={receiver}
+            label={'Nomor Ponsel'}
+            value={IS_FROM_INBOX ? REQUEST_DATA?.name : receiver}
             keyboardType={'phone-pad'}
             onChangeText={text => setReceiver(text)}
-            showContact
+            showContact={!IS_FROM_INBOX}
             onContactPress={() =>
               navigation.navigate('Contact', {target: 'RequestInit'})
             }
@@ -108,32 +133,38 @@ const RequestScreen = ({navigation, route}) => {
         <View style={styles.nominalContainer}>
           <Text style={styles.textNominal}>Nominal Request</Text>
           <TextInput
+            editable={!IS_FROM_INBOX}
             style={styles.input}
-            value={amount}
+            value={IS_FROM_INBOX ? formatRupiah(REQUEST_DATA?.price) : amount}
             keyboardType={'phone-pad'}
             onChangeText={text => setAmount(formatRupiah(text))}
           />
         </View>
         <View style={styles.messageContainer}>
           <Input
+            editable={!IS_FROM_INBOX}
             theme={'material'}
-            label={'Masukan pesan (opsional)'}
-            value={message}
+            label={IS_FROM_INBOX ? 'Pesan' : 'Masukan pesan (opsional)'}
+            value={IS_FROM_INBOX ? REQUEST_DATA?.message : message}
             onChangeText={text => setMessage(text)}
           />
         </View>
       </KeyboardAvoidingView>
       <View style={styles.bottomContainer}>
-        <Button
-          title="Lanjut"
-          onPress={() =>
-            navigation.navigate('PinModal', {
-              id: 'TRANSACTION',
-              type: 'PIN',
-              target: 'RequestInit',
-            })
-          }
-        />
+        {IS_FROM_INBOX ? (
+          <Button invert disabled title={getTitleByStatus()} />
+        ) : (
+          <Button
+            title="Lanjut"
+            onPress={() =>
+              navigation.navigate('PinModal', {
+                id: 'TRANSACTION',
+                type: 'PIN',
+                target: 'RequestInit',
+              })
+            }
+          />
+        )}
       </View>
       <Modal type={'loading'} visible={isLoading} />
     </View>

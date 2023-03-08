@@ -32,6 +32,8 @@ import PlnScreen from '../screens/pln';
 import PlnTokenScreen from '../screens/plntoken';
 import PlnTagihanScreen from '../screens/plntagihan';
 import BPJSScreen from '../screens/bpjs';
+import PDAMScreen from '../screens/pdam';
+import PDAMRegionScreen from '../screens/pdamregion';
 
 //create stack screen
 const Stack = createNativeStackNavigator();
@@ -135,7 +137,7 @@ export const MainScreen = () => {
           }
         })(route),
       })}>
-      <Stack.Screen
+      <Tab.Screen
         name="HomeStack"
         component={HomeStack}
         options={{
@@ -143,7 +145,7 @@ export const MainScreen = () => {
           title: 'Home',
         }}
       />
-      <Stack.Screen
+      <Tab.Screen
         name="HistoryStack"
         component={HistoryStack}
         options={{
@@ -151,7 +153,7 @@ export const MainScreen = () => {
           title: 'History',
         }}
       />
-      <Stack.Screen
+      <Tab.Screen
         name="ProfileStack"
         component={ProfileStack}
         options={{
@@ -232,6 +234,13 @@ const HomeStack = () => {
       <Stack.Screen
         name="BPJS"
         component={BPJSStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PDAM"
+        component={PDAMStack}
         options={{
           headerShown: false,
         }}
@@ -563,6 +572,13 @@ const InboxStack = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="MyRequest"
+        component={RequestStack}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -693,6 +709,57 @@ const BPJSStack = () => {
           headerTitleStyle: {
             ...Typo.TextLargeBold,
           },
+        }}
+      />
+      <Stack.Screen
+        name="PinModal"
+        component={PinModalScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_bottom',
+          animationDuration: 5,
+        }}
+      />
+      <Stack.Screen
+        name="TransactionDetail"
+        component={TransactionDetailScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          animation: 'slide_from_right',
+          animationDuration: 100,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+// =============== PDAM STACK
+const PDAMStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="PDAMInit"
+        component={PDAMScreen}
+        options={{
+          title: 'Air PDAM',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="PDAMRegion"
+        component={PDAMRegionScreen}
+        options={{
+          title: '',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            ...Typo.TextLargeBold,
+          },
+          animation: 'slide_from_right',
         }}
       />
       <Stack.Screen

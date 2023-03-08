@@ -16,7 +16,6 @@ import {
   SubHeading,
   Touchable,
 } from '../../components';
-import Icon from 'react-native-vector-icons/AntDesign';
 import {formatRupiah, normalizeNumber, wait} from '../../utils/utils';
 import {useFocusEffect} from '@react-navigation/native';
 import {GET_CURRENT_DATETIME} from '../../utils/moment';
@@ -96,6 +95,17 @@ const SendScreen = ({navigation, route}) => {
     });
   };
 
+  // == GET TITLE BY STATUS
+  const getTitleByStatus = () => {
+    if (DATA_FROM_REQUEST?.status == 'success') {
+      return 'Selesai';
+    } else if (DATA_FROM_REQUEST?.status == 'rejected') {
+      return 'Ditolak';
+    } else {
+      return 'PENDING';
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -145,16 +155,20 @@ const SendScreen = ({navigation, route}) => {
         </View>
       </KeyboardAvoidingView>
       <View style={styles.bottomContainer}>
-        <Button
-          title="Lanjut"
-          onPress={() =>
-            navigation.navigate('PinModal', {
-              id: 'TRANSACTION',
-              type: 'PIN',
-              target: 'SendInit',
-            })
-          }
-        />
+        {getTitleByStatus() !== 'PENDING' ? (
+          <Button invert disabled title={getTitleByStatus()} />
+        ) : (
+          <Button
+            title="Lanjut"
+            onPress={() =>
+              navigation.navigate('PinModal', {
+                id: 'TRANSACTION',
+                type: 'PIN',
+                target: 'SendInit',
+              })
+            }
+          />
+        )}
       </View>
       <Modal type={'loading'} visible={isLoading} />
     </View>

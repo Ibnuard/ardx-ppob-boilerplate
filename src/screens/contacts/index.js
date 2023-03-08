@@ -107,21 +107,16 @@ const ContactScreen = ({navigation, route}) => {
         useModal
         onPermissionButtonPress={() => requestContactPermission()}
         noPermission={noPermission}>
-        <Row>
-          <TextInput
-            style={styles.input}
-            placeholder="Cari nama atau nomor ponsel"
-            value={keyword}
-            onChangeText={text => setKeyword(text)}
-          />
-          {keyword?.length > 0 && (
-            <Touchable
-              style={styles.clearButton}
-              onPress={() => setKeyword('')}>
-              <Icon name="x" size={24} color={Colors.COLOR_DESCRIPTION} />
-            </Touchable>
-          )}
-        </Row>
+        <Input
+          containerStyle={styles.input}
+          placeholder="Cari nama atau nomor ponsel"
+          showClear={keyword?.length}
+          onClearPress={() => {
+            setKeyword('');
+          }}
+          value={keyword}
+          onChangeText={text => setKeyword(text)}
+        />
 
         <FlatList
           data={filterContact(contact, keyword)}
@@ -160,11 +155,17 @@ const styles = StyleSheet.create({
     marginHorizontal: Size.SIZE_12,
   },
 
+  inputContainer: {
+    backgroundColor: Colors.COLOR_LIGHT_GRAY,
+    borderRadius: 8,
+    paddingHorizontal: Size.SIZE_10,
+    marginBottom: Size.SIZE_14,
+  },
+
   input: {
-    ...Typo.TextNormalRegular,
-    flex: 1,
-    marginBottom: Size.SIZE_12,
-    marginRight: 4,
+    paddingHorizontal: Size.SIZE_8,
+    borderRadius: Size.SIZE_8,
+    marginBottom: Size.SIZE_14,
   },
 
   clearButton: {

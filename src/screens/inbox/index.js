@@ -16,28 +16,68 @@ const InboxScreen = ({navigation}) => {
       price: 20000,
       message: 'Halo',
       createdDate: '2023-02-27T17:00:57+07:00',
+      status: 'success',
     },
     {
       name: '085741894533',
       price: 20000,
       message: 'Halo',
       createdDate: '2023-02-26T17:00:57+07:00',
+      status: 'pending',
     },
     {
       name: '085741894533',
       price: 20000,
       message: 'Halo',
       createdDate: '2023-02-25T17:00:57+07:00',
+      status: 'success',
     },
     {
       name: '085741894533',
       price: 20000,
       message: 'Halo',
       createdDate: '2023-02-25T17:00:57+07:00',
+      status: 'rejected',
+    },
+  ];
+
+  const EX_MY_DATA = [
+    {
+      name: '085741894533',
+      price: 20000,
+      message: 'Halooo',
+      createdDate: '2023-02-27T17:00:57+07:00',
+      type: 'MYREQUEST',
+      status: 'success',
+    },
+    {
+      name: '085741894533',
+      price: 20000,
+      message: 'Halo',
+      createdDate: '2023-02-26T17:00:57+07:00',
+      type: 'MYREQUEST',
+      status: 'rejected',
+    },
+    {
+      name: '085741894533',
+      price: 20000,
+      message: 'Halo',
+      createdDate: '2023-02-25T17:00:57+07:00',
+      type: 'MYREQUEST',
+      status: 'pending',
+    },
+    {
+      name: '085741894533',
+      price: 20000,
+      message: 'Halo',
+      createdDate: '2023-02-25T17:00:57+07:00',
+      type: 'MYREQUEST',
+      status: 'pending',
     },
   ];
 
   const NORMALIZE_DATA = groupingArraybyDate(EX_DATA);
+  const NORMALIZE_MY_DATA = groupingArraybyDate(EX_MY_DATA);
 
   // ==== RENDER LIST SCREEN
   function _renderListRequestScreen() {
@@ -80,15 +120,15 @@ const InboxScreen = ({navigation}) => {
     return (
       <View style={styles.container}>
         <SectionList
-          sections={NORMALIZE_DATA}
+          sections={NORMALIZE_MY_DATA}
           keyExtractor={(item, index) => item + index}
           renderItem={({item}) => (
             <Touchable
               style={styles.card}
               onPress={() =>
-                navigation.navigate('Transfer', {
-                  screen: 'SendInit',
-                  params: {id: 'FROM_REQUEST', data: item},
+                navigation.navigate('MyRequest', {
+                  screen: 'RequestInit',
+                  params: {id: 'FROM_INBOX', data: item},
                 })
               }>
               <Row>
